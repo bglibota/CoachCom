@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+android:layout_height="match_parent"
+android:layout_width="match_parent"
+tools:context=".SettingsFragment">
+
+
+    <ProgressBar
+        android:id="@+id/progressBar4"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="397dp"
+        android:layout_height="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/theme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/theme"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="Theme"
+        app:layout_constraintBottom_toTopOf="@+id/language"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar4" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/privacy"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="Privacy"
+        app:layout_constraintBottom_toTopOf="@+id/feedback"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/feedback"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="58dp"
+        android:text="Feedback"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/privacy" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/about"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="58dp"
+        android:text="About"
+        app:layout_constraintBottom_toTopOf="@+id/privacy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/help" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/language"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="Language"
+        app:layout_constraintBottom_toTopOf="@+id/help"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/theme" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/help"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="58dp"
+        android:text="Help and support"
+        app:layout_constraintBottom_toTopOf="@+id/about"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/language" />
+
+    <ProgressBar
+        android:id="@+id/progressBar3"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="397dp"
+        android:layout_height="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/notifications_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notifications_title" />
+
+    <TextView
+        android:id="@+id/notifications_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="201dp"
+        android:text="Notifications"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/checkup_planner" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="35dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="192dp"
+        android:src="@drawable/baseline_edit_notifications_24"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar3"
+        app:layout_constraintEnd_toStartOf="@+id/notifications_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+
+    <Switch
+        android:id="@+id/notifications_switch"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="Notifications"
+        app:layout_constraintBottom_toTopOf="@+id/app_switch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+
+    <Switch
+        android:id="@+id/app_switch"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="41dp"
+        android:text="App notifications"
+        app:layout_constraintBottom_toTopOf="@+id/more_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notifications_switch" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/change_password"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="55dp"
+        android:layout_marginEnd="58dp"
+        android:text="Change password"
+        app:layout_constraintBottom_toTopOf="@+id/checkup_planner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_profile" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/checkup_planner"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="41dp"
+        android:text="Checkup planner"
+        app:layout_constraintBottom_toTopOf="@+id/notifications_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/change_password" />
+
+    <TextView
+        android:id="@+id/more_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="281dp"
+        android:text="More"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/app_switch" />
+
+    <TextView
+        android:id="@+id/settings_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="245dp"
+        android:layout_marginBottom="38dp"
+        android:text="Settings"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/account_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/account_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="249dp"
+        android:text="Account"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/settings_title" />
+
+<ImageView
+    android:id="@+id/imageView"
+    android:layout_height="30dp"
+    android:layout_marginBottom="2dp"
+    android:layout_marginStart="23dp"
+    android:layout_marginTop="38dp"
+    android:layout_width="32dp"
+    android:src="@drawable/baseline_person_24"
+    app:layout_constraintBottom_toTopOf="@+id/progressBar2"
+    app:layout_constraintEnd_toStartOf="@+id/account_title"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/settings_title"
+    app:layout_constraintVertical_bias="1.0" />
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="397dp"
+        android:layout_height="22dp"
+        app:layout_constraintBottom_toTopOf="@+id/edit_profile"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/account_title" />
+
+    <com.google.android.material.chip.Chip
+        android:id="@+id/edit_profile"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:text="Edit profile"
+        app:layout_constraintBottom_toTopOf="@+id/change_password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.486"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="31dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="142dp"
+        android:src="@drawable/plus"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar4"
+        app:layout_constraintEnd_toStartOf="@+id/more_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

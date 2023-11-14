@@ -3,19 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".LoginFragment">
 
     <Button
         android:id="@+id/register_button"
         android:layout_width="315dp"
         android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
         android:text="Create new account"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.564"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBar"
+        tools:layout_editor_absoluteY="81dp" />
 
     <TextView
         android:id="@+id/Logo"
@@ -87,7 +88,7 @@
     <EditText
         android:id="@+id/password"
         android:layout_width="317dp"
-        android:layout_height="46dp"
+        android:layout_height="60dp"
         android:layout_marginStart="41dp"
         android:layout_marginEnd="34dp"
         android:ems="10"
@@ -101,7 +102,7 @@
     <EditText
         android:id="@+id/email_phone"
         android:layout_width="317dp"
-        android:layout_height="47dp"
+        android:layout_height="60dp"
         android:layout_marginStart="41dp"
         android:layout_marginEnd="34dp"
         android:ems="10"
@@ -122,6 +123,7 @@
         android:text="Forgot Password?"
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
