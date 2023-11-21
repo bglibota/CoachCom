@@ -54,7 +54,7 @@
         android:layout_marginBottom="20dp"
         android:text="Hi there! Nice to see you again."
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/email_phone"
+        app:layout_constraintBottom_toTopOf="@+id/login_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.358"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,7 +85,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/login_password"
         android:layout_width="317dp"
         android:layout_height="60dp"
         android:layout_marginStart="41dp"
@@ -96,18 +96,18 @@
         app:layout_constraintBottom_toTopOf="@+id/login_forgot_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/login_username" />
 
     <EditText
-        android:id="@+id/email_phone"
+        android:id="@+id/login_username"
         android:layout_width="317dp"
         android:layout_height="60dp"
         android:layout_marginStart="41dp"
         android:layout_marginEnd="34dp"
         android:ems="10"
-        android:hint="Email or phone number"
+        android:hint="Username or email"
         android:inputType="text"
-        app:layout_constraintBottom_toTopOf="@+id/password"
+        app:layout_constraintBottom_toTopOf="@+id/login_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hi_there" />
@@ -127,7 +127,7 @@
         app:layout_constraintBottom_toTopOf="@+id/login_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/login_password" />
 
     <TextView
         android:id="@+id/textView"
