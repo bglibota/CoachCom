@@ -1,9 +1,9 @@
-package com.example.coachcom
+package foi.air.coachcom
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import com.example.coachcom.databinding.ActivityMainBinding
+import foi.air.coachcom.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

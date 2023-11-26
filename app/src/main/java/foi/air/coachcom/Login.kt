@@ -1,20 +1,22 @@
-package com.example.coachcom
+package foi.air.coachcom
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import com.example.coachcom.models.LoginData
-import com.example.coachcom.models.ResponseData
-import com.example.coachcom.network.ApiInterface
+import foi.air.coachcom.models.LoginData
+import foi.air.coachcom.models.ResponseData
+import foi.air.coachcom.network.ApiInterface
+import foi.air.coachcom.network.Retrofit
+import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class Login : AppCompatActivity() {
 
@@ -46,15 +48,11 @@ class Login : AppCompatActivity() {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            val retrofitBuilder = Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://10.0.2.2:3000/")
-                .build()
-                .create(ApiInterface::class.java)
+            val apiInterface: ApiInterface = Retrofit.apiInterface
 
             val loginData = LoginData(insertedUsername = username, insertedPassword = password)
 
-            val retrofitData = retrofitBuilder.loginUser(loginData)
+            val retrofitData = apiInterface.loginUser(loginData)
 
             retrofitData.enqueue(object : Callback<ResponseData> {
                 override fun onResponse(
@@ -65,20 +63,28 @@ class Login : AppCompatActivity() {
                     if(response.isSuccessful){
                         val responseData = response.body()
                         val message = responseData?.message
-                        Log.d("Login", "Poruka: $message")
+                        val role = responseData?.data
+
+                        val sharedPrefs = getSharedPreferences("User", Context.MODE_PRIVATE)
+                        val editor = sharedPrefs.edit()
+
+                        editor.putString("username",username )
+                        editor.putString("role", role)
+                        editor.apply()
+
+                        val intent = Intent(this@Login, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
                     }
                     if(!response.isSuccessful){
                         val errorBody = response.errorBody()?.string()
                         val errorJson = JSONObject(errorBody)
                         val errorMessage = errorJson.optString("message")
-                        Log.d("Login", "Poruka: $errorMessage")
+
+                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
+
                     }
-
-
-
-
-
-
 
 
 

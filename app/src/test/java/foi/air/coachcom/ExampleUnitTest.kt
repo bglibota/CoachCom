@@ -1,4 +1,4 @@
-package com.example.coachcom
+package foi.air.coachcom
 
 import org.junit.Test
 

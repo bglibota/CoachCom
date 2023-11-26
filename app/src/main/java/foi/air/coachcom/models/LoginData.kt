@@ -1,4 +1,4 @@
-package com.example.coachcom.models
+package foi.air.coachcom.models
 
 
 data class LoginData(
@@ -8,5 +8,5 @@ data class LoginData(
 data class ResponseData(
     val success: String,
     val message: String,
-    val data: List<Any>
+    val data: String  //List<Any>
 )

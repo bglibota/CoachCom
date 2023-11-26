@@ -1,7 +1,7 @@
-package com.example.coachcom.network
+package foi.air.coachcom.network
 
-import com.example.coachcom.models.LoginData
-import com.example.coachcom.models.ResponseData
+import foi.air.coachcom.models.LoginData
+import foi.air.coachcom.models.ResponseData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST

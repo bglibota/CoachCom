@@ -9,7 +9,7 @@
 
 android:layout_height="wrap_content"
 android:layout_width="match_parent"
-tools:context=".SettingsFragment">
+tools:context="foi.air.coachcom.SettingsFragment">
 
 
     <ProgressBar

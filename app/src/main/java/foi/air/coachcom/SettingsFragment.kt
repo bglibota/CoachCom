@@ -1,4 +1,4 @@
-package com.example.coachcom
+package foi.air.coachcom
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

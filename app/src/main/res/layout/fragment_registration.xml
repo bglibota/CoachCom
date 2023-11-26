@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context=".RegistrationFragment">
+    tools:context="foi.air.coachcom.RegistrationFragment">
 
     <Button
         android:id="@+id/coach_sign_up"

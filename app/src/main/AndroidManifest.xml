@@ -17,7 +17,7 @@
 
 
         <activity
-            android:name=".Login"
+            android:name="foi.air.coachcom.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="foi.air.coachcom.MainActivity" />
     </application>
 
 </manifest>

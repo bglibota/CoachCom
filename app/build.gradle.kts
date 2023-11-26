@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.coachcom"
+    namespace = "foi.air.coachcom"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.coachcom"
+        applicationId = "foi.air.coachcom"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
