@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import foi.air.coachcom.models.LoginData
-import foi.air.coachcom.models.ResponseData
+import foi.air.coachcom.models.ResponseLoginData
 import foi.air.coachcom.network.ApiInterface
 import foi.air.coachcom.network.Retrofit
 import com.google.android.material.snackbar.Snackbar
@@ -54,10 +54,10 @@ class Login : AppCompatActivity() {
 
             val retrofitData = apiInterface.loginUser(loginData)
 
-            retrofitData.enqueue(object : Callback<ResponseData> {
+            retrofitData.enqueue(object : Callback<ResponseLoginData> {
                 override fun onResponse(
-                    call: Call<ResponseData>,
-                    response: Response<ResponseData>
+                    call: Call<ResponseLoginData>,
+                    response: Response<ResponseLoginData>
                 ) {
 
                     if(response.isSuccessful){
@@ -86,15 +86,11 @@ class Login : AppCompatActivity() {
 
                     }
 
-
-
-
-
                 }
 
-                override fun onFailure(call: Call<ResponseData>, t: Throwable) {
+                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
                     Log.d("Login", t.toString())
-                    Log.d("Login", "greška")
+                    Log.d("Login", "Error")
                     Log.d("Login", t.printStackTrace().toString())
                 }
             })

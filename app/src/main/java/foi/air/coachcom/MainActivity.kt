@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             when(it.itemId){
                 R.id.home -> replaceFragment(HomeFragment())
                 R.id.messages -> replaceFragment(MessagesFragment())
-                R.id.profile -> replaceFragment(ProfileFragment())
+                R.id.profile -> replaceFragment(ClientProfileFragment())
                 R.id.workouts -> replaceFragment(WorkoutsFragment())
                 R.id.settings_title -> replaceFragment(SettingsFragment())
             }

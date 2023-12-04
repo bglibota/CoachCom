@@ -5,8 +5,8 @@ data class LoginData(
     val insertedUsername: String,
     val insertedPassword: String
 )
-data class ResponseData(
+data class ResponseLoginData(
     val success: String,
     val message: String,
-    val data: String  //List<Any>
+    val data: String
 )
