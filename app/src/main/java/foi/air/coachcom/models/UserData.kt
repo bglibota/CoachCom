@@ -23,10 +23,31 @@ data class UserData(
     val last_login_time: String?,
     val number_of_login_attempts: Int?,
     val activation_code: String?,
-    val profile_picture_path: String?,
+    val picture: ImageData?,
     val documentation_directory_path: String?,
-    val profile_status: String?,
+    val profile_status: Int?,
     val biography_video_path: String?,
     val user_type_id: Int?,
     val raw_password: String?
 )
+
+data class ImageData(
+    val type: String,
+    val data: ByteArray
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is ImageData) return false
+
+        if (type != other.type) return false
+        if (!data.contentEquals(other.data)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = type.hashCode()
+        result = 31 * result + data.contentHashCode()
+        return result
+    }
+}

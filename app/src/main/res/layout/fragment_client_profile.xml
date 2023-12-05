@@ -7,6 +7,173 @@
     tools:context="foi.air.coachcom.ClientProfileFragment" >
 
     <View
+        android:id="@+id/separatorView8"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/client_profile_sex"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-40dp"
+        android:background="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/client_sex_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView7"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/sex" />
+
+    <TextView
+        android:id="@+id/client_profile_sex"
+        android:layout_width="267dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView7"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="Sex"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/separatorView7"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/client_profile_place"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-29dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-32dp"
+        android:background="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/client_residence_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView6"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/property" />
+
+    <TextView
+        android:id="@+id/client_profile_place"
+        android:layout_width="267dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView6"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="Place of residence"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/separatorView6"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/client_profile_phone"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-24dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-38dp"
+        android:background="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/client_phone_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView3"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/phone" />
+
+    <View
+        android:id="@+id/separatorView3"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/client_profile_birthday"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-27dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-37dp"
+        android:background="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/client_birthday_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView2"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/birthday" />
+
+    <TextView
+        android:id="@+id/client_profile_birthday"
+        android:layout_width="267dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView2"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="Birthday"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/client_profile_phone"
+        android:layout_width="267dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView3"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="Phone number"
+        android:textSize="20sp" />
+
+    <View
+        android:id="@+id/separatorView2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/client_profile_email"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="-23dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="-42dp"
+        android:background="@android:color/darker_gray" />
+
+    <ImageView
+        android:id="@+id/client_email_icon"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/baseline_chat_24" />
+
+    <View
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="235dp"
@@ -23,12 +190,13 @@
         android:layout_marginStart="100dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="100dp"
+        android:text="Name"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="24sp" />
 
     <TextView
-        android:id="@+id/cilient_profile_name_view"
+        android:id="@+id/client_profile_name_view"
         android:layout_width="267dp"
         android:layout_height="34dp"
         android:layout_below="@+id/client_profile_image"
@@ -37,7 +205,20 @@
         android:layout_marginStart="88dp"
         android:layout_marginTop="35dp"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text="Name"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/client_profile_email"
+        android:layout_width="267dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/separatorView"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="false"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
+        android:text="E-mail"
         android:textSize="20sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -60,7 +241,7 @@
         android:id="@+id/separatorView"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/cilient_profile_name_view"
+        android:layout_below="@+id/client_profile_name_view"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
