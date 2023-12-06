@@ -55,11 +55,11 @@ class ClientProfileFragment : Fragment() {
 
         val sharedPrefs = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE)
 
-        val username = sharedPrefs.getString("username", "") ?: ""
+        val userId = sharedPrefs.getInt("user_id", 0)
 
         val apiInterface: ApiInterface = Retrofit.apiInterface
 
-        val call: Call<UserDataResponse> = apiInterface.getUserData(username)
+        val call: Call<UserDataResponse> = apiInterface.getUserData(userId)
 
         call.enqueue(object : Callback<UserDataResponse> {
             override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {

@@ -62,15 +62,17 @@ class Login : AppCompatActivity() {
 
                     if(response.isSuccessful){
                         val responseData = response.body()
-                        val message = responseData?.message
-                        val role = responseData?.data
+                        val session = responseData?.data
+                        val userId = session?.user_id ?: 0
+                        val role = session?.role
 
                         val sharedPrefs = getSharedPreferences("User", Context.MODE_PRIVATE)
                         val editor = sharedPrefs.edit()
 
-                        editor.putString("username",username )
                         editor.putString("role", role)
+                        editor.putInt("user_id",userId)
                         editor.apply()
+
 
                         val intent = Intent(this@Login, MainActivity::class.java)
                         startActivity(intent)

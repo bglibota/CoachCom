@@ -15,6 +15,6 @@ interface ApiInterface {
     fun loginUser(@Body dataLogin: LoginData): Call<ResponseLoginData>
 
     @GET("API_V2/users/user")
-    fun getUserData(@Query("username") username: String): Call<UserDataResponse>
+    fun getUserData(@Query("user_id") userId: Int): Call<UserDataResponse>
 
 }
