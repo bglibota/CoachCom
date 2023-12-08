@@ -1,4 +1,4 @@
-package foi.air.coachcom.models
+package foi.air.coachcom.ws.models
 
 data class UserDataResponse(
     val success: Boolean,

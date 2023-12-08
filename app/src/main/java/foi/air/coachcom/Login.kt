@@ -8,10 +8,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import foi.air.coachcom.models.LoginData
-import foi.air.coachcom.models.ResponseLoginData
-import foi.air.coachcom.network.ApiInterface
-import foi.air.coachcom.network.Retrofit
+import foi.air.coachcom.ws.models.LoginData
+import foi.air.coachcom.ws.models.ResponseLoginData
+import foi.air.coachcom.ws.network.LoginService
+import foi.air.coachcom.ws.network.NetworkService
 import com.google.android.material.snackbar.Snackbar
 import org.json.JSONObject
 import retrofit2.Call
@@ -48,11 +48,14 @@ class Login : AppCompatActivity() {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            val apiInterface: ApiInterface = Retrofit.apiInterface
+            val loginService: LoginService = NetworkService.loginService
 
-            val loginData = LoginData(insertedUsername = username, insertedPassword = password)
+            val loginData = LoginData(
+                insertedUsername = username,
+                insertedPassword = password
+            )
 
-            val retrofitData = apiInterface.loginUser(loginData)
+            val retrofitData = loginService.loginUser(loginData)
 
             retrofitData.enqueue(object : Callback<ResponseLoginData> {
                 override fun onResponse(

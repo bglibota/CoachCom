@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "CoachCom"
 include(":app")
+include(":ws")

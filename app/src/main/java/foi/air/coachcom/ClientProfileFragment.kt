@@ -1,10 +1,6 @@
 package foi.air.coachcom
 
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,15 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import de.hdodenhof.circleimageview.CircleImageView
-import foi.air.coachcom.models.ImageData
-import foi.air.coachcom.models.UserData
-import foi.air.coachcom.models.UserDataResponse
-import foi.air.coachcom.network.ApiInterface
-import foi.air.coachcom.network.Retrofit
+import foi.air.coachcom.ws.models.ImageData
+import foi.air.coachcom.ws.models.UserData
+import foi.air.coachcom.ws.models.UserDataResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import com.bumptech.glide.Glide
+import foi.air.coachcom.ws.network.NetworkService
+import foi.air.coachcom.ws.network.ProfileService
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,9 +53,9 @@ class ClientProfileFragment : Fragment() {
 
         val userId = sharedPrefs.getInt("user_id", 0)
 
-        val apiInterface: ApiInterface = Retrofit.apiInterface
+        val profileService: ProfileService = NetworkService.profileService
 
-        val call: Call<UserDataResponse> = apiInterface.getUserData(userId)
+        val call: Call<UserDataResponse> = profileService.getUserData(userId)
 
         call.enqueue(object : Callback<UserDataResponse> {
             override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {
@@ -113,15 +109,14 @@ class ClientProfileFragment : Fragment() {
                     sexTextView.text = sex
 
                 } else {
-                    // Obrada neuspešnog odgovora
-                    // response.errorBody() može pružiti dodatne informacije o grešci
+
                     val error = response.errorBody()
                     Log.d("Client","$error")
                 }
             }
 
             override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
-                // Obrada greške
+
                 Log.d("Client","$t")
             }
         })
