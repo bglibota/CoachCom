@@ -1,23 +1,41 @@
 package foi.air.coachcom
 
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.components.Legend
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.formatter.ValueFormatter
 import de.hdodenhof.circleimageview.CircleImageView
 import foi.air.coachcom.ws.models.ImageData
+import foi.air.coachcom.ws.models.MeasurementDataResponse
+import foi.air.coachcom.ws.models.Measurements
+import foi.air.coachcom.ws.models.PhysicalMeasurements
+import foi.air.coachcom.ws.models.TargetMeasurement
 import foi.air.coachcom.ws.models.UserData
 import foi.air.coachcom.ws.models.UserDataResponse
+import foi.air.coachcom.ws.network.MeasurementService
+import foi.air.coachcom.ws.network.NetworkService
+import foi.air.coachcom.ws.network.ProfileService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import com.bumptech.glide.Glide
-import foi.air.coachcom.ws.network.NetworkService
-import foi.air.coachcom.ws.network.ProfileService
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -62,12 +80,11 @@ class ClientProfileFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    val data: UserDataResponse? = responseData
                     val user: UserData? = responseData?.data
                     val firstName: String? = user?.first_name
                     val lastName: String? = user?.last_name
                     val email: String? = user?.e_mail
-                    val birthday: String? = user?.date_of_birth
+                    val birthday: Date? = user?.date_of_birth
                     val phone: String? = user?. phone_number
                     val residence: String? = user?.place_of_residence
                     val sex: String? = user?.sex
@@ -97,7 +114,9 @@ class ClientProfileFragment : Fragment() {
                     emailTextView.text = email
 
                     val birthdayTextView : TextView = rootView.findViewById(R.id.client_profile_birthday)
-                    birthdayTextView.text = birthday
+                    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
+                    val formattedDate: String? = birthday?.let { dateFormat.format(it) }
+                    birthdayTextView.text = formattedDate
 
                     val phoneTextView : TextView = rootView.findViewById(R.id.client_profile_phone)
                     phoneTextView.text = phone
@@ -108,6 +127,40 @@ class ClientProfileFragment : Fragment() {
                     val sexTextView : TextView = rootView.findViewById(R.id.client_profile_sex)
                     sexTextView.text = sex
 
+                    val measurementService: MeasurementService = NetworkService.measurementService
+                    val call2: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+
+                    call2.enqueue(object : Callback<MeasurementDataResponse> {
+                        override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
+                            if (response.isSuccessful) {
+                                val responseMeasurementData = response.body()
+                                val measurements: Measurements? = responseMeasurementData?.data
+                                val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
+                                val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
+
+                                val firstTargetMeasurement: TargetMeasurement? = targetMeasurements?.firstOrNull()
+                                val height: Float? = firstTargetMeasurement?.height ?: 0f
+                                val heightTextView : TextView = rootView.findViewById(R.id.client_profile_height)
+                                heightTextView.text = height.toString()
+
+                                val targetWeight: Float? = firstTargetMeasurement?.target_weight ?: 0f
+                                val weights: List<Float> = physicalMeasurements?.map { it.weight } ?: emptyList()
+
+                                val weightChart: BarChart = rootView.findViewById(R.id.chart_weight)
+                                setupWeightChart(weightChart)
+                                setWeightChartData(targetMeasurements, physicalMeasurements, weightChart)
+
+                                Log.d("Client","$weights")
+                            }else{
+                                val error = response.errorBody()
+                                Log.d("Client","$error")
+                            }
+                        }
+
+                        override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
+                            Log.d("Client","$t")
+                        }
+                    })
                 } else {
 
                     val error = response.errorBody()
@@ -124,6 +177,73 @@ class ClientProfileFragment : Fragment() {
         return rootView
         return inflater.inflate(R.layout.fragment_client_profile, container, false)
     }
+
+
+    private fun setupWeightChart(chart: BarChart) {
+
+        chart.description.isEnabled = false
+        chart.setDrawGridBackground(false)
+        //chart.setDrawBorders(true)
+
+        // Postavke osi X
+        val xAxis: XAxis = chart.xAxis
+        xAxis.position = XAxis.XAxisPosition.BOTTOM
+        xAxis.granularity = 1f
+
+        // Postavke osi Y
+        val leftAxis: YAxis = chart.axisLeft
+        leftAxis.setDrawGridLines(true)
+
+        val rightAxis: YAxis = chart.axisRight
+        rightAxis.isEnabled = false
+
+        // Legenda
+        val legend: Legend = chart.legend
+        legend.form = Legend.LegendForm.SQUARE
+    }
+
+    private fun setWeightChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val weightEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.weight.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f)) // Dodajte nulu ako nema weightEntries
+
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_weight.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f)) // Dodajte nulu ako nema targetEntry
+
+        val allEntries = weightEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual Weight Data")
+        dataSet1.color = Color.GREEN
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target Weight Data")
+        dataSet2.color = Color.BLUE
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        // Postavljanje datuma ispod svakog bara na x-osi
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
+
+
+
+
 
     companion object {
         /**

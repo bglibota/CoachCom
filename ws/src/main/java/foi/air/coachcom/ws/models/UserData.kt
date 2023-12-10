@@ -1,5 +1,7 @@
 package foi.air.coachcom.ws.models
 
+import java.util.Date
+
 data class UserDataResponse(
     val success: Boolean,
     val message: String,
@@ -14,7 +16,7 @@ data class UserData(
     val first_name: String?,
     val last_name: String?,
     val e_mail: String?,
-    val date_of_birth: String?,
+    val date_of_birth: Date?,
     val phone_number: String?,
     val place_of_residence: String?,
     val sex: String?,
