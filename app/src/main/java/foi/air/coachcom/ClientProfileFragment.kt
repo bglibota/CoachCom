@@ -143,14 +143,33 @@ class ClientProfileFragment : Fragment() {
                                 val heightTextView : TextView = rootView.findViewById(R.id.client_profile_height)
                                 heightTextView.text = height.toString()
 
-                                val targetWeight: Float? = firstTargetMeasurement?.target_weight ?: 0f
-                                val weights: List<Float> = physicalMeasurements?.map { it.weight } ?: emptyList()
+                                //val targetWeight: Float? = firstTargetMeasurement?.target_weight ?: 0f
+                                //val weights: List<Float> = physicalMeasurements?.map { it.weight } ?: emptyList()
 
                                 val weightChart: BarChart = rootView.findViewById(R.id.chart_weight)
-                                setupWeightChart(weightChart)
+                                setupChart(weightChart)
                                 setWeightChartData(targetMeasurements, physicalMeasurements, weightChart)
 
-                                Log.d("Client","$weights")
+                                val waistChart: BarChart = rootView.findViewById(R.id.chart_waist)
+                                setupChart(waistChart)
+                                setWaistChartData(targetMeasurements, physicalMeasurements, waistChart)
+
+                                val chestChart: BarChart = rootView.findViewById(R.id.chart_chest)
+                                setupChart(chestChart)
+                                setChestChartData(targetMeasurements, physicalMeasurements, chestChart)
+
+                                val armChart: BarChart = rootView.findViewById(R.id.chart_arm)
+                                setupChart(armChart)
+                                setArmChartData(targetMeasurements, physicalMeasurements, armChart)
+
+                                val legChart: BarChart = rootView.findViewById(R.id.chart_leg)
+                                setupChart(legChart)
+                                setLegChartData(targetMeasurements, physicalMeasurements, legChart)
+
+                                val hipChart: BarChart = rootView.findViewById(R.id.chart_hip)
+                                setupChart(hipChart)
+                                setHipChartData(targetMeasurements, physicalMeasurements, hipChart)
+
                             }else{
                                 val error = response.errorBody()
                                 Log.d("Client","$error")
@@ -179,51 +198,49 @@ class ClientProfileFragment : Fragment() {
     }
 
 
-    private fun setupWeightChart(chart: BarChart) {
+    private fun setupChart(chart: BarChart) {
 
         chart.description.isEnabled = false
         chart.setDrawGridBackground(false)
-        //chart.setDrawBorders(true)
 
-        // Postavke osi X
         val xAxis: XAxis = chart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.granularity = 1f
 
-        // Postavke osi Y
         val leftAxis: YAxis = chart.axisLeft
         leftAxis.setDrawGridLines(true)
 
         val rightAxis: YAxis = chart.axisRight
         rightAxis.isEnabled = false
 
-        // Legenda
         val legend: Legend = chart.legend
         legend.form = Legend.LegendForm.SQUARE
+        legend.textSize = 14f
+        legend.xEntrySpace = 20f
+        legend.isWordWrapEnabled = true
     }
 
     private fun setWeightChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
         val weightEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.weight.toFloat(), measurement)
-        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f)) // Dodajte nulu ako nema weightEntries
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
 
         val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
             BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_weight.toFloat(), targetMeasurement)
-        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f)) // Dodajte nulu ako nema targetEntry
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
 
         val allEntries = weightEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual Weight Data")
-        dataSet1.color = Color.GREEN
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual weight data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target Weight Data")
-        dataSet2.color = Color.BLUE
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target weight")
+        dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
 
         chart.data = barData
 
-        // Postavljanje datuma ispod svakog bara na x-osi
         val xAxis: XAxis = chart.xAxis
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
@@ -234,7 +251,45 @@ class ClientProfileFragment : Fragment() {
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it) } ?: ""
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
+
+    private fun setWaistChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val waistEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.waist_circumference.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_waist_circumference.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val allEntries = waistEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual waist circumference data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target waist circumference")
+        dataSet2.color = Color.parseColor("#8B4513")
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
             }
         }
 
@@ -242,7 +297,157 @@ class ClientProfileFragment : Fragment() {
     }
 
 
+    private fun setChestChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val chestEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.chest_circumference.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
 
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_chest_circumference.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val allEntries = chestEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual chest circumference data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target chest circumference")
+        dataSet2.color = Color.parseColor("#8B4513")
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
+
+    private fun setArmChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val armEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.arm_circumference.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_arm_circumference.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val allEntries = armEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual arm circumference data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target arm circumference")
+        dataSet2.color = Color.parseColor("#8B4513")
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
+
+    private fun setLegChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val legEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.leg_circumference.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_leg_circumference.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val allEntries = legEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual leg circumference data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target leg circumference")
+        dataSet2.color = Color.parseColor("#8B4513")
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
+
+    private fun setHipChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+        val hipEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
+            BarEntry((index + 1).toFloat(), measurement.hip_circumference.toFloat(), measurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val targetEntry: List<BarEntry> = targetMeasurements?.mapIndexed { index, targetMeasurement ->
+            BarEntry((index + 1 + (physicalMeasurements?.size ?: 0)).toFloat(), targetMeasurement.target_hip_circumference.toFloat(), targetMeasurement)
+        }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
+
+        val allEntries = hipEntries + targetEntry
+
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual hip circumference data")
+        dataSet1.color = Color.parseColor("#9AC0CD")
+
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target hip circumference")
+        dataSet2.color = Color.parseColor("#8B4513")
+
+        val barData = BarData(dataSet1, dataSet2)
+
+        chart.data = barData
+
+        val xAxis: XAxis = chart.xAxis
+        xAxis.valueFormatter = object : ValueFormatter() {
+            override fun getFormattedValue(value: Float): String {
+                val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
+                    when (it) {
+                        is PhysicalMeasurements -> it.date
+                        is TargetMeasurement -> it.date
+                        else -> null
+                    }
+                }
+                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+            }
+        }
+
+        chart.invalidate()
+    }
 
 
     companion object {

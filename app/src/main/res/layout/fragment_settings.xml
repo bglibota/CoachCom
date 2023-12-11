@@ -3,267 +3,254 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="#F6F2F2">
 
-<androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
 
-android:layout_height="wrap_content"
-android:layout_width="match_parent"
-tools:context="foi.air.coachcom.SettingsFragment">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
 
-    <ProgressBar
-        android:id="@+id/progressBar4"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="397dp"
-        android:layout_height="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/theme"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/more_icon" />
+        <View
+            android:id="@+id/separatorView16"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/more_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="-30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-35dp"
+            android:background="@android:color/darker_gray" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/theme"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:text="@string/theme"
-        app:layout_constraintBottom_toTopOf="@+id/language"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar4" />
+        <View
+            android:id="@+id/separatorView1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/account_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="-5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-60dp"
+            android:background="@android:color/darker_gray" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/privacy"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:text="@string/privacy"
-        app:layout_constraintBottom_toTopOf="@+id/feedback"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/about" />
+        <View
+            android:id="@+id/separatorView15"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/notifications_title"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="-25dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-40dp"
+            android:background="@android:color/darker_gray" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/feedback"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/feedback"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/privacy" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/theme"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/separatorView16"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/theme" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/about"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/about"
-        app:layout_constraintBottom_toTopOf="@+id/privacy"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/help" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/privacy"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/about"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/privacy" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/language"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:text="@string/language"
-        app:layout_constraintBottom_toTopOf="@+id/help"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/theme" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/feedback"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/privacy"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="58dp"
+            android:text="@string/feedback" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/help"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/help_and_support"
-        app:layout_constraintBottom_toTopOf="@+id/about"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/language" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/about"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/help"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="58dp"
+            android:text="@string/about" />
 
-    <ProgressBar
-        android:id="@+id/progressBar3"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="397dp"
-        android:layout_height="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/notifications_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notifications_title" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/language"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/theme"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/language" />
 
-    <TextView
-        android:id="@+id/notifications_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="201dp"
-        android:text="@string/notifications"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/notification_icon"
-        app:layout_constraintTop_toBottomOf="@+id/checkup_planner" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/help"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/language"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="58dp"
+            android:text="@string/help_and_support" />
 
-    <ImageView
-        android:id="@+id/notification_icon"
-        android:layout_width="35dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="192dp"
-        android:contentDescription="@string/notification_icon"
-        android:src="@drawable/baseline_edit_notifications_24"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar3"
-        app:layout_constraintEnd_toStartOf="@+id/notifications_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+        <TextView
+            android:id="@+id/notifications_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/checkup_planner"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/notification_icon"
+            android:text="@string/notifications"
+            android:textSize="24sp" />
 
-    <Switch
-        android:id="@+id/notifications_switch"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:text="@string/notifications_title"
-        app:layout_constraintBottom_toTopOf="@+id/app_switch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar3"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <ImageView
+            android:id="@+id/notification_icon"
+            android:layout_width="32dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/checkup_planner"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/notification_icon"
+            android:src="@drawable/baseline_edit_notifications_24" />
 
-    <Switch
-        android:id="@+id/app_switch"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="41dp"
-        android:text="@string/app_notifications"
-        app:layout_constraintBottom_toTopOf="@+id/more_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/notifications_switch"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <Switch
+            android:id="@+id/notifications_switch"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/separatorView15"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/notifications_title"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/change_password"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="55dp"
-        android:layout_marginEnd="58dp"
-        android:text="@string/change_password"
-        app:layout_constraintBottom_toTopOf="@+id/checkup_planner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile" />
+        <Switch
+            android:id="@+id/app_switch"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/notifications_switch"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/app_notifications"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/checkup_planner"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="41dp"
-        android:text="@string/checkup_planner"
-        app:layout_constraintBottom_toTopOf="@+id/notifications_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/change_password" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/change_password"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/edit_profile"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="58dp"
+            android:text="@string/change_password" />
 
-    <TextView
-        android:id="@+id/more_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="41dp"
-        android:layout_marginEnd="281dp"
-        android:text="@string/more"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/more_icon"
-        app:layout_constraintTop_toBottomOf="@+id/app_switch" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/checkup_planner"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/change_password"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/checkup_planner" />
 
-    <TextView
-        android:id="@+id/settings_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="245dp"
-        android:layout_marginBottom="38dp"
-        android:text="Settings"
-        android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/account_title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="HardcodedText" />
+        <TextView
+            android:id="@+id/more_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/app_switch"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="223dp"
+            android:layout_toEndOf="@+id/more_icon"
+            android:text="@string/more"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/account_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="249dp"
-        android:text="@string/account"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/settings_title" />
+        <TextView
+            android:id="@+id/account_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView2"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="50dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:text="@string/account"
+            android:textSize="24sp" />
 
-<ImageView
-    android:id="@+id/imageView"
-    android:layout_height="30dp"
-    android:layout_marginBottom="2dp"
-    android:layout_marginStart="23dp"
-    android:layout_marginTop="38dp"
-    android:layout_width="32dp"
-    android:src="@drawable/baseline_person_24"
-    app:layout_constraintBottom_toTopOf="@+id/progressBar2"
-    app:layout_constraintEnd_toStartOf="@+id/account_title"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/settings_title"
-    app:layout_constraintVertical_bias="1.0"
-    android:contentDescription="@string/todo" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="32dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="50dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/baseline_person_24" />
 
-    <ProgressBar
-        android:id="@+id/progressBar2"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="397dp"
-        android:layout_height="22dp"
-        app:layout_constraintBottom_toTopOf="@+id/edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/account_title" />
+        <com.google.android.material.chip.Chip
+            android:id="@+id/edit_profile"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/separatorView1"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="false"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="58dp"
+            android:text="@string/edit_profile" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/edit_profile"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:text="@string/edit_profile"
-        app:layout_constraintBottom_toTopOf="@+id/change_password"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.486"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar2" />
+        <ImageView
+            android:id="@+id/more_icon"
+            android:layout_width="32dp"
+            android:layout_height="30dp"
+            android:layout_below="@+id/app_switch"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:contentDescription="@string/more_icon"
+            android:src="@drawable/plus" />
 
-    <ImageView
-        android:id="@+id/more_icon"
-        android:layout_width="31dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="142dp"
-        android:contentDescription="@string/more_icon"
-        android:src="@drawable/plus"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar4"
-        app:layout_constraintEnd_toStartOf="@+id/more_title"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar3" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="139dp"
+            android:text="Settings"
+            android:textSize="34sp"
+            android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </RelativeLayout>
 
 </ScrollView>
