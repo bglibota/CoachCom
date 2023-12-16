@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F2F2">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterPhysicalMeasurements">
+
+    <ImageView
+        android:id="@+id/change_physical_back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/baseline_arrow_back_ios_24" />
+
+    <TextView
+        android:id="@+id/physical_measurements_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/change_physical_back"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:text="Enter Physical Measurements"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/physical_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/physical_measurements_title"
+        android:layout_marginTop="20dp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/weightTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/physical_recyclerView"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_weight"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Weight"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/waistCircumferenceTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/weightTextInputLayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_waistCircumference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Waist Circumference"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Chest Circumference -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/chestCircumferenceTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/waistCircumferenceTextInputLayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_chestCircumference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Chest Circumference"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/armCircumferenceTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/chestCircumferenceTextInputLayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_armCircumference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Arm Circumference"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/legCircumferenceTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/armCircumferenceTextInputLayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_legCircumference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Leg Circumference"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/hipCircumferenceTextInputLayout"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/legCircumferenceTextInputLayout"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/change_physical_hipCircumference"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Hip Circumference"
+            android:inputType="numberDecimal" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/change_physical_enterButton"
+        android:layout_width="330dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/hipCircumferenceTextInputLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="10dp"
+        android:text="Enter Data" />
+
+</RelativeLayout>
+</ScrollView>

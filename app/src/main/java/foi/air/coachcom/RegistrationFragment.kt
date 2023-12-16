@@ -46,6 +46,7 @@ class RegistrationFragment : DialogFragment() {
             clientRegisterDialog.show(childFragmentManager, "clientRegisterDialog")
         }
 
+
         return rootView
 
         return inflater.inflate(R.layout.fragment_registration, container, false)

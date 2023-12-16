@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.messages -> replaceFragment(MessagesFragment())
                 R.id.profile -> replaceFragment(ClientProfileFragment())
                 R.id.workouts -> replaceFragment(WorkoutsFragment())
-                R.id.settings_title -> replaceFragment(SettingsFragment())
+                R.id.settings_title -> replaceFragment(ClientSettingsFragment())
             }
             true
 

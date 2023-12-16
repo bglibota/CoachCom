@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F2F2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="foi.air.coachcom.ClientPersonalInformation">
+
+        <ImageView
+            android:id="@+id/change_physical_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:id="@+id/physical_measurements_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/change_physical_back"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Change Personal Information"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/firstNameIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/physical_measurements_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/baseline_person_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/firstNameTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/physical_measurements_title"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="40dp"
+            android:layout_toEndOf="@+id/firstNameIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_firstName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="First Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/lastNameIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/firstNameTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/baseline_person_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lastNameTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/firstNameTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/lastNameIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_lastName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Last Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/emailIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/lastNameTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/baseline_chat_24" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/lastNameTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/emailIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_email"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="E-mail"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/birthdayIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/emailTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/birthday" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/birthdayTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/emailTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/birthdayIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_birthday"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Birthday"
+                android:inputType="date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/phoneNumberIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/birthdayTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/phone" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNumberTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/birthdayTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/phoneNumberIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_phone"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Phone Number"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/placeOfResidenceIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/phoneNumberTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/property" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/placeOfResidenceTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/phoneNumberTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/placeOfResidenceIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_place"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Place of Residence"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/sexIcon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/placeOfResidenceTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:src="@drawable/sex" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/sexTextInputLayout"
+            android:layout_width="270dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/placeOfResidenceTextInputLayout"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_toEndOf="@+id/sexIcon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_personal_sex"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Sex"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/change_personal_saveButton"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/sexTextInputLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:text="Save Changes" />
+
+
+    </RelativeLayout>
+
+</ScrollView>

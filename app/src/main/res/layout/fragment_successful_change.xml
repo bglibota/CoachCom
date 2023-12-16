@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context=".SuccessfulChangeFragment">
+
+
+    <Button
+        android:id="@+id/successful_homeButton"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/successful_change_title"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="221dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="40dp"
+        android:text="Home Page" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="122dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="122dp"
+        android:src="@drawable/successful_change" />
+
+    <TextView
+        android:id="@+id/successful_change_title"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="50dp"
+        android:gravity="center_horizontal"
+        android:text="Your change has been reset successfully."
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/successful_backButton"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/successful_change_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginBottom="40dp"
+        android:text="Back" />
+</RelativeLayout>
