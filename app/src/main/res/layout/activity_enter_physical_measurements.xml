@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F2F2">
+    android:background="#F6F2F2"
+    android:fillViewport="true">
 
 <RelativeLayout
     android:layout_width="match_parent"
@@ -36,9 +37,10 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/physical_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="300dp"
         android:layout_below="@+id/physical_measurements_title"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="20dp"
+        android:background="#F1DADA" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -74,7 +76,7 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Chest Circumference -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/chestCircumferenceTextInputLayout"
         android:layout_width="330dp"
