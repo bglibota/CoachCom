@@ -111,8 +111,8 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
             call.enqueue(object : Callback<PhysicalMeasurementDataResponse> {
                 override fun onResponse(call: Call<PhysicalMeasurementDataResponse>, response: Response<PhysicalMeasurementDataResponse>) {
                     if (response.isSuccessful) {
-                        val responseTargetMeasurementData = response.body()
-                        val message = responseTargetMeasurementData?.message
+                        val responsePhysicalMeasurementData = response.body()
+                        val message = responsePhysicalMeasurementData?.message
 
                         val intent = Intent(this@EnterPhysicalMeasurements, SuccessfulChange::class.java)
                         intent.putExtra("newText", "$message")

@@ -16,7 +16,7 @@
             android:id="@+id/client_settings_physical_measurements"
             android:layout_width="280dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/client_settings_height"
+            android:layout_below="@+id/client_settings_password"
             android:layout_alignParentStart="true"
             android:layout_marginStart="52dp"
             android:layout_marginTop="10dp"
@@ -188,16 +188,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="58dp"
             android:text="@string/change_password" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/client_settings_height"
-            android:layout_width="280dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/client_settings_password"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="52dp"
-            android:layout_marginTop="10dp"
-            android:text="Enter height" />
 
         <TextView
             android:id="@+id/more_title"
