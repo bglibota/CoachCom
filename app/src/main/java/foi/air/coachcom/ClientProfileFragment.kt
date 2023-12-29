@@ -84,11 +84,11 @@ class ClientProfileFragment : Fragment() {
                     val firstName: String? = user?.first_name
                     val lastName: String? = user?.last_name
                     val email: String? = user?.e_mail
-                    val birthday: Date? = user?.date_of_birth
                     val phone: String? = user?. phone_number
                     val residence: String? = user?.place_of_residence
                     val sex: String? = user?.sex
                     val profilePicture: ImageData? = user?.picture
+                    val formattedBirth: String? = user?.formatted_birthdate
 
                     val nameTextView: TextView = rootView.findViewById(R.id.client_profile_name)
                     nameTextView.text = "$firstName $lastName"
@@ -114,9 +114,7 @@ class ClientProfileFragment : Fragment() {
                     emailTextView.text = email
 
                     val birthdayTextView : TextView = rootView.findViewById(R.id.client_profile_birthday)
-                    val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                    val formattedDate: String? = birthday?.let { dateFormat.format(it) }
-                    birthdayTextView.text = formattedDate
+                    birthdayTextView.text = formattedBirth
 
                     val phoneTextView : TextView = rootView.findViewById(R.id.client_profile_phone)
                     phoneTextView.text = phone
@@ -246,12 +244,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 
@@ -284,12 +282,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 
@@ -323,12 +321,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 
@@ -361,12 +359,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 
@@ -399,12 +397,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 
@@ -437,12 +435,12 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.date
-                        is TargetMeasurement -> it.date
+                        is PhysicalMeasurements -> it.formatted_date
+                        is TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
-                return date?.let { SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(it) } ?: ""
+                return date ?: ""
             }
         }
 

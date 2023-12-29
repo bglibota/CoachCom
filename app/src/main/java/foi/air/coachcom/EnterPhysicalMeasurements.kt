@@ -178,10 +178,7 @@ class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<Physica
         addTextViewToContainer(containerLayout, "Arm Circumference: ${measurement.arm_circumference}")
         addTextViewToContainer(containerLayout, "Leg Circumference: ${measurement.leg_circumference}")
         addTextViewToContainer(containerLayout, "Hip Circumference: ${measurement.hip_circumference}")
-
-        val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-        val formattedDate: String? = measurement.date?.let { dateFormat.format(it) }
-        addTextViewToContainer(containerLayout, "Date: $formattedDate")
+        addTextViewToContainer(containerLayout, "Date: ${measurement.formatted_date}")
     }
 
     private fun addTextViewToContainer(containerLayout: LinearLayout, text: String) {
