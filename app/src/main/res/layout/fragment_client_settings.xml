@@ -261,6 +261,18 @@
             android:textSize="34sp"
             android:textStyle="bold" />
 
+        <Button
+            android:id="@+id/client_settings_logoutButton"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/feedback"
+            android:layout_alignParentStart="false"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="52dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:text="Logout" />
+
     </RelativeLayout>
 
 </ScrollView>

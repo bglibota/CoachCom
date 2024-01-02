@@ -149,8 +149,8 @@ class ChangePersonalInformation : AppCompatActivity() {
             call.enqueue(object : Callback<ClientPersonalInformationDataResponse> {
                 override fun onResponse(call: Call<ClientPersonalInformationDataResponse>, response: Response<ClientPersonalInformationDataResponse>) {
                     if (response.isSuccessful) {
-                        val responseTargetMeasurementData = response.body()
-                        val message = responseTargetMeasurementData?.message
+                        val responseChangePersonalInformationData = response.body()
+                        val message = responseChangePersonalInformationData?.message
 
                         val intent = Intent(this@ChangePersonalInformation, SuccessfulChange::class.java)
                         intent.putExtra("newText", "$message")

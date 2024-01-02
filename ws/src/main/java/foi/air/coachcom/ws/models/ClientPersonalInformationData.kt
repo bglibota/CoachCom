@@ -1,7 +1,5 @@
 package foi.air.coachcom.ws.models
 
-import java.util.Date
-
 
 data class ClientPersonalInformationData(
 
