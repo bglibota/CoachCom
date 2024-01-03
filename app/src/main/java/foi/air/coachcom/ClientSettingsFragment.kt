@@ -1,5 +1,6 @@
 package foi.air.coachcom
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -65,6 +66,21 @@ class ClientSettingsFragment : Fragment() {
         enterTargetMeasurements.setOnClickListener {
             val intent = Intent(requireContext(), EnterTargetMeasurements::class.java)
             startActivity(intent)
+        }
+
+        val logoutButton: Button = rootView.findViewById(R.id.client_settings_logoutButton)
+
+        logoutButton.setOnClickListener {
+
+            val sharedPrefs = requireActivity().getSharedPreferences("User", Context.MODE_PRIVATE)
+            val editor = sharedPrefs.edit()
+
+            editor.clear()
+            editor.apply()
+
+            val intent = Intent(requireContext(), Login::class.java)
+            startActivity(intent)
+
         }
 
         return rootView

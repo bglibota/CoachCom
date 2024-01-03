@@ -30,7 +30,8 @@ data class UserData(
     val profile_status: Int?,
     val biography_video_path: String?,
     val user_type_id: Int?,
-    val raw_password: String?
+    val raw_password: String?,
+    val formatted_birthdate: String?
 )
 
 data class ImageData(

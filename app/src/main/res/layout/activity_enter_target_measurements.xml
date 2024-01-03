@@ -38,13 +38,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/target_measurements_title"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:background="#F1DADA"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/heightTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/target_recyclerView"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/change_target_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Your Height"
+                android:inputType="numberDecimal" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/weightTextInputLayout"
             android:layout_width="330dp"
             android:layout_height="60dp"
-            android:layout_below="@+id/target_recyclerView"
+            android:layout_below="@+id/heightTextInputLayout"
             android:layout_marginStart="30dp"
             android:layout_marginTop="20dp">
 

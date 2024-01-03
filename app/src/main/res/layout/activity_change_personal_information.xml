@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="Birthday"
-                android:inputType="date" />
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ImageView
@@ -231,7 +231,6 @@
             android:layout_marginTop="30dp"
             android:layout_marginBottom="10dp"
             android:text="Save Changes" />
-
 
     </RelativeLayout>
 

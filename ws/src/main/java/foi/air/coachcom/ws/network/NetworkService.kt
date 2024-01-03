@@ -15,4 +15,8 @@ object NetworkService {
     val loginService: LoginService = instance.create(LoginService::class.java)
     val profileService: ProfileService = instance.create(ProfileService::class.java)
     val measurementService: MeasurementService = instance.create(MeasurementService::class.java)
+    val physicalMeasurementService: PhysicalMeasurementService = instance.create(PhysicalMeasurementService::class.java)
+    val targetMeasurementService: TargetMeasurementService = instance.create(TargetMeasurementService::class.java)
+    val changePersonalInformationService: ChangePersonalInformationService = instance.create(ChangePersonalInformationService::class.java)
+    val changePasswordService: ChangePasswordService = instance.create(ChangePasswordService::class.java)
 }

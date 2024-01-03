@@ -24,7 +24,8 @@ data class TargetMeasurement(
     val target_arm_circumference: Float,
     val target_leg_circumference: Float,
     val target_hip_circumference: Float,
-    val date: Date
+    val date: Date,
+    val formatted_date: String
 
 )
 
@@ -37,5 +38,6 @@ data class PhysicalMeasurements(
     val arm_circumference: Float,
     val leg_circumference: Float,
     val hip_circumference: Float,
-    val date: Date
+    val date: Date,
+    val formatted_date: String
 )
