@@ -8,6 +8,6 @@ import retrofit2.http.PATCH
 
 interface ChangePersonalInformationService {
 
-    @PATCH("API_V2/users/user/client/update")
+    @PATCH("api/users/user/client/update")
     fun savePersonalInformation(@Body dataPersonalInformation : ClientPersonalInformationData): Call<ClientPersonalInformationDataResponse>
 }

@@ -8,6 +8,6 @@ import retrofit2.http.PUT
 
 interface TargetMeasurementService {
 
-    @PUT("API_V2/users/user/measurements/target/update")
+    @PUT("api/users/user/measurements/target/update")
     fun enterTargetMeasurements(@Body dataTargetMeasurements: TargetMeasurementData): Call<TargetMeasurementDataResponse>
 }

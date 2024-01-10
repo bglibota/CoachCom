@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface MeasurementService {
 
-    @GET("API_V2/users/user/measurements")
+    @GET("api/users/user/measurements")
     fun getMeasurementData(@Query("user_id") userId: Int): Call<MeasurementDataResponse>
 }

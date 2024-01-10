@@ -7,6 +7,6 @@ import retrofit2.http.Query
 
 interface ProfileService {
 
-    @GET("API_V2/users/user")
+    @GET("api/users/user")
     fun getUserData(@Query("user_id") userId: Int): Call<UserDataResponse>
 }

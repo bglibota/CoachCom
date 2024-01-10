@@ -7,6 +7,6 @@ import retrofit2.http.POST
 
 interface LoginService {
 
-    @POST("API_V2/users/login")
+    @POST("api/users/login")
     fun loginUser(@Body dataLogin: foi.air.coachcom.ws.models.LoginData): Call<ResponseLoginData>
 }

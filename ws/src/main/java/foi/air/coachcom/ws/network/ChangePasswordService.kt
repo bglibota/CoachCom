@@ -7,6 +7,6 @@ import retrofit2.http.Body
 import retrofit2.http.PATCH
 
 interface ChangePasswordService {
-    @PATCH("API_V2/users/user/password")
+    @PATCH("api/users/user/password")
     fun updatePassword(@Body dataPasswords : ChangePasswordData): Call<ChangePasswordDataResponse>
 }

@@ -8,6 +8,6 @@ import retrofit2.http.POST
 
 interface PhysicalMeasurementService {
 
-    @POST("API_V2/users/user/measurements/physical/create")
+    @POST("api/users/user/measurements/physical/create")
     fun enterPhysicalMeasurements(@Body dataPhysicalMeasurements: PhysicalMeasurementData): Call<PhysicalMeasurementDataResponse>
 }

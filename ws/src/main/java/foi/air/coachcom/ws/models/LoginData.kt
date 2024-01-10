@@ -8,10 +8,10 @@ data class LoginData(
 data class ResponseLoginData(
     val success: String,
     val message: String,
-    val data: session
+    val data: Session
 )
 
-data class session(
+data class Session(
     val user_id: Int,
     val role: String
 )
