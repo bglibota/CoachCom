@@ -8,10 +8,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
-import foi.air.coachcom.ws.models.ClientPersonalInformationData
-import foi.air.coachcom.ws.models.ClientPersonalInformationDataResponse
-import foi.air.coachcom.ws.models.UserData
-import foi.air.coachcom.ws.models.UserDataResponse
+import foi.air.core.models.ClientPersonalInformationData
+import foi.air.core.models.ClientPersonalInformationDataResponse
+import foi.air.core.models.UserData
+import foi.air.core.models.UserDataResponse
 import foi.air.coachcom.ws.network.ChangePersonalInformationService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.ProfileService
@@ -131,16 +131,17 @@ class ChangePersonalInformation : AppCompatActivity() {
 
 
 
-            val changePersonalInformationData = ClientPersonalInformationData(
-                user_id = userId,
-                first_name = firstName,
-                last_name = lastName,
-                e_mail = email,
-                date_of_birth = birthday,
-                phone_number = phone,
-                place_of_residence = residence,
-                sex = sex
-            )
+            val changePersonalInformationData =
+                ClientPersonalInformationData(
+                    user_id = userId,
+                    first_name = firstName,
+                    last_name = lastName,
+                    e_mail = email,
+                    date_of_birth = birthday,
+                    phone_number = phone,
+                    place_of_residence = residence,
+                    sex = sex
+                )
 
             val changePersonalInformationService: ChangePersonalInformationService = NetworkService.changePersonalInformationService
 

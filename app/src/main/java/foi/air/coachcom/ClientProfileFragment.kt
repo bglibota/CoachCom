@@ -19,22 +19,19 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import de.hdodenhof.circleimageview.CircleImageView
-import foi.air.coachcom.ws.models.ImageData
-import foi.air.coachcom.ws.models.MeasurementDataResponse
-import foi.air.coachcom.ws.models.Measurements
-import foi.air.coachcom.ws.models.PhysicalMeasurements
-import foi.air.coachcom.ws.models.TargetMeasurement
-import foi.air.coachcom.ws.models.UserData
-import foi.air.coachcom.ws.models.UserDataResponse
+import foi.air.core.models.ImageData
+import foi.air.core.models.MeasurementDataResponse
+import foi.air.core.models.Measurements
+import foi.air.core.models.PhysicalMeasurements
+import foi.air.core.models.TargetMeasurement
+import foi.air.core.models.UserData
+import foi.air.core.models.UserDataResponse
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.ProfileService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 // TODO: Rename parameter arguments, choose names that match

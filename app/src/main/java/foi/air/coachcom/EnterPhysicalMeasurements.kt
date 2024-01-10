@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.ws.models.MeasurementDataResponse
-import foi.air.coachcom.ws.models.Measurements
-import foi.air.coachcom.ws.models.PhysicalMeasurementData
-import foi.air.coachcom.ws.models.PhysicalMeasurementDataResponse
-import foi.air.coachcom.ws.models.PhysicalMeasurements
-import foi.air.coachcom.ws.models.TargetMeasurement
+import foi.air.core.models.MeasurementDataResponse
+import foi.air.core.models.Measurements
+import foi.air.core.models.PhysicalMeasurementData
+import foi.air.core.models.PhysicalMeasurementDataResponse
+import foi.air.core.models.PhysicalMeasurements
+import foi.air.core.models.TargetMeasurement
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.PhysicalMeasurementService
@@ -30,8 +30,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class EnterPhysicalMeasurements : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

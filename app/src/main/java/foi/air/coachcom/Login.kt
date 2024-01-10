@@ -8,8 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import foi.air.coachcom.ws.models.LoginData
-import foi.air.coachcom.ws.models.ResponseLoginData
+import foi.air.core.models.LoginData
+import foi.air.core.models.ResponseLoginData
 import foi.air.coachcom.ws.network.LoginService
 import foi.air.coachcom.ws.network.NetworkService
 import com.google.android.material.snackbar.Snackbar

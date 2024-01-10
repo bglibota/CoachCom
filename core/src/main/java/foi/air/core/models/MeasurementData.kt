@@ -1,4 +1,4 @@
-package foi.air.coachcom.ws.models
+package foi.air.core.models
 
 import java.util.Date
 

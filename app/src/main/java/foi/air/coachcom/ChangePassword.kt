@@ -2,22 +2,17 @@ package foi.air.coachcom
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.ws.models.ChangePasswordData
-import foi.air.coachcom.ws.models.ChangePasswordDataResponse
-import foi.air.coachcom.ws.models.PhysicalMeasurementData
-import foi.air.coachcom.ws.models.PhysicalMeasurementDataResponse
+import foi.air.core.models.ChangePasswordData
+import foi.air.core.models.ChangePasswordDataResponse
 import foi.air.coachcom.ws.network.ChangePasswordService
 import foi.air.coachcom.ws.network.NetworkService
-import foi.air.coachcom.ws.network.PhysicalMeasurementService
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback

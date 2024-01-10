@@ -44,6 +44,8 @@ android {
 dependencies {
 
     implementation(project(":ws"))
+    implementation(project(":core"))
+    implementation(project(":plan"))
 
     implementation("androidx.core:core-ktx:1.9.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
