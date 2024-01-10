@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "foi.air.coachcom"
-    compileSdk = 33
+    namespace = "foi.air.core"
+    compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")

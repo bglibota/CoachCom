@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.models.MeasurementDataResponse
-import foi.air.coachcom.models.Measurements
-import foi.air.coachcom.models.PhysicalMeasurements
-import foi.air.coachcom.models.TargetMeasurement
-import foi.air.coachcom.models.TargetMeasurementData
-import foi.air.coachcom.models.TargetMeasurementDataResponse
+import foi.air.core.models.MeasurementDataResponse
+import foi.air.core.models.Measurements
+import foi.air.core.models.PhysicalMeasurements
+import foi.air.core.models.TargetMeasurement
+import foi.air.core.models.TargetMeasurementData
+import foi.air.core.models.TargetMeasurementDataResponse
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.TargetMeasurementService
@@ -47,15 +47,15 @@ class EnterTargetMeasurements : AppCompatActivity() {
 
         val measurementService: MeasurementService = NetworkService.measurementService
 
-        val call: Call<foi.air.coachcom.models.MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+        val call: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
 
-        call.enqueue(object : Callback<foi.air.coachcom.models.MeasurementDataResponse> {
-            override fun onResponse(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, response: Response<foi.air.coachcom.models.MeasurementDataResponse>) {
+        call.enqueue(object : Callback<MeasurementDataResponse> {
+            override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
                 if (response.isSuccessful) {
                     val responseMeasurementData = response.body()
-                    val measurements: foi.air.coachcom.models.Measurements? = responseMeasurementData?.data
-                    val targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>? = measurements?.target_measurements
-                    val physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>? = measurements?.physical_measurements
+                    val measurements: Measurements? = responseMeasurementData?.data
+                    val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
+                    val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
 
                     val recyclerView: RecyclerView = findViewById(R.id.target_recyclerView)
                     val targetMeasurementsAdapter = TargetMeasurementsAdapter(targetMeasurements)
@@ -70,7 +70,7 @@ class EnterTargetMeasurements : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
                 Log.d("EnterTargetMeasurements","$t")
             }
         })
@@ -94,7 +94,7 @@ class EnterTargetMeasurements : AppCompatActivity() {
             val targetHipCircumference = targetHipEditText.text.toString().toFloat()
 
 
-            val targetMeasurementsData = foi.air.coachcom.models.TargetMeasurementData(
+            val targetMeasurementsData = TargetMeasurementData(
                 user_id = userId,
                 height = height,
                 target_weight = targetWeight,
@@ -107,10 +107,10 @@ class EnterTargetMeasurements : AppCompatActivity() {
 
             val targetMeasurementService: TargetMeasurementService = NetworkService.targetMeasurementService
 
-            val call: Call<foi.air.coachcom.models.TargetMeasurementDataResponse> = targetMeasurementService.enterTargetMeasurements(targetMeasurementsData)
+            val call: Call<TargetMeasurementDataResponse> = targetMeasurementService.enterTargetMeasurements(targetMeasurementsData)
 
-            call.enqueue(object : Callback<foi.air.coachcom.models.TargetMeasurementDataResponse> {
-                override fun onResponse(call: Call<foi.air.coachcom.models.TargetMeasurementDataResponse>, response: Response<foi.air.coachcom.models.TargetMeasurementDataResponse>) {
+            call.enqueue(object : Callback<TargetMeasurementDataResponse> {
+                override fun onResponse(call: Call<TargetMeasurementDataResponse>, response: Response<TargetMeasurementDataResponse>) {
                     if (response.isSuccessful) {
                         val responseTargetMeasurementData = response.body()
                         val message = responseTargetMeasurementData?.message
@@ -133,7 +133,7 @@ class EnterTargetMeasurements : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<foi.air.coachcom.models.TargetMeasurementDataResponse>, t: Throwable) {
+                override fun onFailure(call: Call<TargetMeasurementDataResponse>, t: Throwable) {
                     Log.d("EnterTargetMeasurements","$t")
                 }
             })
@@ -143,7 +143,7 @@ class EnterTargetMeasurements : AppCompatActivity() {
     }
 }
 
-class TargetMeasurementsAdapter(private var targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?) :
+class TargetMeasurementsAdapter(private var targetMeasurements: List<TargetMeasurement>?) :
     RecyclerView.Adapter<TargetMeasurementsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -168,7 +168,7 @@ class TargetMeasurementsAdapter(private var targetMeasurements: List<foi.air.coa
         return targetMeasurements?.size ?: 0
     }
 
-    private fun bindData(containerLayout: LinearLayout, measurement: foi.air.coachcom.models.TargetMeasurement) {
+    private fun bindData(containerLayout: LinearLayout, measurement: TargetMeasurement) {
 
         containerLayout.removeAllViews()
 

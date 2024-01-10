@@ -1,4 +1,4 @@
-package foi.air.coachcom.models
+package foi.air.core.models
 
 data class ChangePasswordData(
 

@@ -1,4 +1,4 @@
-package foi.air.coachcom
+package foi.air.core
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

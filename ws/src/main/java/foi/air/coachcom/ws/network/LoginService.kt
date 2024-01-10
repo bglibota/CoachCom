@@ -1,5 +1,7 @@
 package foi.air.coachcom.ws.network
 
+import foi.air.core.models.LoginData
+import foi.air.core.models.ResponseLoginData
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -7,5 +9,5 @@ import retrofit2.http.POST
 interface LoginService {
 
     @POST("api/users/login")
-    fun loginUser(@Body dataLogin: foi.air.coachcom.models.LoginData): Call<foi.air.coachcom.models.ResponseLoginData>
+    fun loginUser(@Body dataLogin: LoginData): Call<ResponseLoginData>
 }

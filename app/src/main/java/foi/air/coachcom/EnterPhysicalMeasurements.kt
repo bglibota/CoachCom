@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.models.MeasurementDataResponse
-import foi.air.coachcom.models.Measurements
-import foi.air.coachcom.models.PhysicalMeasurementData
-import foi.air.coachcom.models.PhysicalMeasurementDataResponse
-import foi.air.coachcom.models.PhysicalMeasurements
-import foi.air.coachcom.models.TargetMeasurement
+import foi.air.core.models.MeasurementDataResponse
+import foi.air.core.models.Measurements
+import foi.air.core.models.PhysicalMeasurementData
+import foi.air.core.models.PhysicalMeasurementDataResponse
+import foi.air.core.models.PhysicalMeasurements
+import foi.air.core.models.TargetMeasurement
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.PhysicalMeasurementService
@@ -47,15 +47,15 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
 
         val measurementService: MeasurementService = NetworkService.measurementService
 
-        val call: Call<foi.air.coachcom.models.MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+        val call: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
 
-        call.enqueue(object : Callback<foi.air.coachcom.models.MeasurementDataResponse> {
-            override fun onResponse(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, response: Response<foi.air.coachcom.models.MeasurementDataResponse>) {
+        call.enqueue(object : Callback<MeasurementDataResponse> {
+            override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
                 if (response.isSuccessful) {
                     val responseMeasurementData = response.body()
-                    val measurements: foi.air.coachcom.models.Measurements? = responseMeasurementData?.data
-                    val targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>? = measurements?.target_measurements
-                    val physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>? = measurements?.physical_measurements
+                    val measurements: Measurements? = responseMeasurementData?.data
+                    val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
+                    val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
 
                     val recyclerView: RecyclerView = findViewById(R.id.physical_recyclerView)
                     val physicalMeasurementsAdapter = PhysicalMeasurementsAdapter(physicalMeasurements)
@@ -70,7 +70,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, t: Throwable) {
+            override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
                 Log.d("EnterPhysicalMeasurements","$t")
             }
         })
@@ -92,7 +92,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
             val hipCircumference = hipEditText.text.toString().toFloat()
 
 
-            val physicalMeasurementsData = foi.air.coachcom.models.PhysicalMeasurementData(
+            val physicalMeasurementsData = PhysicalMeasurementData(
                 user_id = userId,
                 weight = weight,
                 waist_circumference = waistCircumference,
@@ -104,10 +104,10 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
 
             val physicalMeasurementService: PhysicalMeasurementService = NetworkService.physicalMeasurementService
 
-            val call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse> = physicalMeasurementService.enterPhysicalMeasurements(physicalMeasurementsData)
+            val call: Call<PhysicalMeasurementDataResponse> = physicalMeasurementService.enterPhysicalMeasurements(physicalMeasurementsData)
 
-            call.enqueue(object : Callback<foi.air.coachcom.models.PhysicalMeasurementDataResponse> {
-                override fun onResponse(call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse>, response: Response<foi.air.coachcom.models.PhysicalMeasurementDataResponse>) {
+            call.enqueue(object : Callback<PhysicalMeasurementDataResponse> {
+                override fun onResponse(call: Call<PhysicalMeasurementDataResponse>, response: Response<PhysicalMeasurementDataResponse>) {
                     if (response.isSuccessful) {
                         val responsePhysicalMeasurementData = response.body()
                         val message = responsePhysicalMeasurementData?.message
@@ -130,7 +130,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse>, t: Throwable) {
+                override fun onFailure(call: Call<PhysicalMeasurementDataResponse>, t: Throwable) {
                     Log.d("EnterPhysicalMeasurements","$t")
                 }
             })
@@ -140,7 +140,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
     }
 }
 
-class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?) :
+class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<PhysicalMeasurements>?) :
     RecyclerView.Adapter<PhysicalMeasurementsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -165,7 +165,7 @@ class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<foi.air
         return physicalMeasurements?.size ?: 0
     }
 
-    private fun bindData(containerLayout: LinearLayout, measurement: foi.air.coachcom.models.PhysicalMeasurements) {
+    private fun bindData(containerLayout: LinearLayout, measurement: PhysicalMeasurements) {
 
         containerLayout.removeAllViews()
 
