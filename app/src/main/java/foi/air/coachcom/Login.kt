@@ -8,8 +8,8 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import foi.air.coachcom.ws.models.LoginData
-import foi.air.coachcom.ws.models.ResponseLoginData
+import foi.air.coachcom.models.LoginData
+import foi.air.coachcom.models.ResponseLoginData
 import foi.air.coachcom.ws.network.LoginService
 import foi.air.coachcom.ws.network.NetworkService
 import com.google.android.material.snackbar.Snackbar
@@ -50,17 +50,17 @@ class Login : AppCompatActivity() {
 
             val loginService: LoginService = NetworkService.loginService
 
-            val loginData = LoginData(
+            val loginData = foi.air.coachcom.models.LoginData(
                 insertedUsername = username,
                 insertedPassword = password
             )
 
             val retrofitData = loginService.loginUser(loginData)
 
-            retrofitData.enqueue(object : Callback<ResponseLoginData> {
+            retrofitData.enqueue(object : Callback<foi.air.coachcom.models.ResponseLoginData> {
                 override fun onResponse(
-                    call: Call<ResponseLoginData>,
-                    response: Response<ResponseLoginData>
+                    call: Call<foi.air.coachcom.models.ResponseLoginData>,
+                    response: Response<foi.air.coachcom.models.ResponseLoginData>
                 ) {
 
                     if(response.isSuccessful){
@@ -93,7 +93,7 @@ class Login : AppCompatActivity() {
 
                 }
 
-                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
+                override fun onFailure(call: Call<foi.air.coachcom.models.ResponseLoginData>, t: Throwable) {
                     Log.d("Login", t.toString())
                     Log.d("Login", "Error")
                     Log.d("Login", t.printStackTrace().toString())

@@ -1,6 +1,5 @@
 package foi.air.coachcom.ws.network
 
-import foi.air.coachcom.ws.models.MeasurementDataResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -8,5 +7,5 @@ import retrofit2.http.Query
 interface MeasurementService {
 
     @GET("api/users/user/measurements")
-    fun getMeasurementData(@Query("user_id") userId: Int): Call<MeasurementDataResponse>
+    fun getMeasurementData(@Query("user_id") userId: Int): Call<foi.air.coachcom.models.MeasurementDataResponse>
 }

@@ -8,10 +8,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
-import foi.air.coachcom.ws.models.ClientPersonalInformationData
-import foi.air.coachcom.ws.models.ClientPersonalInformationDataResponse
-import foi.air.coachcom.ws.models.UserData
-import foi.air.coachcom.ws.models.UserDataResponse
+import foi.air.coachcom.models.ClientPersonalInformationData
+import foi.air.coachcom.models.ClientPersonalInformationDataResponse
+import foi.air.coachcom.models.UserData
+import foi.air.coachcom.models.UserDataResponse
 import foi.air.coachcom.ws.network.ChangePersonalInformationService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.ProfileService
@@ -53,13 +53,13 @@ class ChangePersonalInformation : AppCompatActivity() {
 
         val profileService: ProfileService = NetworkService.profileService
 
-        val call: Call<UserDataResponse> = profileService.getUserData(userId)
+        val call: Call<foi.air.coachcom.models.UserDataResponse> = profileService.getUserData(userId)
 
-        call.enqueue(object : Callback<UserDataResponse> {
-            override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {
+        call.enqueue(object : Callback<foi.air.coachcom.models.UserDataResponse> {
+            override fun onResponse(call: Call<foi.air.coachcom.models.UserDataResponse>, response: Response<foi.air.coachcom.models.UserDataResponse>) {
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    val user: UserData? = responseData?.data
+                    val user: foi.air.coachcom.models.UserData? = responseData?.data
 
                     val firstName: TextInputEditText = findViewById(R.id.change_personal_firstName)
                     firstName.setText(user?.first_name)
@@ -82,7 +82,7 @@ class ChangePersonalInformation : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
+            override fun onFailure(call: Call<foi.air.coachcom.models.UserDataResponse>, t: Throwable) {
                 Log.d("ChangePersonalInformation","$t")
             }
         })
@@ -131,23 +131,24 @@ class ChangePersonalInformation : AppCompatActivity() {
 
 
 
-            val changePersonalInformationData = ClientPersonalInformationData(
-                user_id = userId,
-                first_name = firstName,
-                last_name = lastName,
-                e_mail = email,
-                date_of_birth = birthday,
-                phone_number = phone,
-                place_of_residence = residence,
-                sex = sex
-            )
+            val changePersonalInformationData =
+                foi.air.coachcom.models.ClientPersonalInformationData(
+                    user_id = userId,
+                    first_name = firstName,
+                    last_name = lastName,
+                    e_mail = email,
+                    date_of_birth = birthday,
+                    phone_number = phone,
+                    place_of_residence = residence,
+                    sex = sex
+                )
 
             val changePersonalInformationService: ChangePersonalInformationService = NetworkService.changePersonalInformationService
 
-            val call: Call<ClientPersonalInformationDataResponse> = changePersonalInformationService.savePersonalInformation(changePersonalInformationData)
+            val call: Call<foi.air.coachcom.models.ClientPersonalInformationDataResponse> = changePersonalInformationService.savePersonalInformation(changePersonalInformationData)
 
-            call.enqueue(object : Callback<ClientPersonalInformationDataResponse> {
-                override fun onResponse(call: Call<ClientPersonalInformationDataResponse>, response: Response<ClientPersonalInformationDataResponse>) {
+            call.enqueue(object : Callback<foi.air.coachcom.models.ClientPersonalInformationDataResponse> {
+                override fun onResponse(call: Call<foi.air.coachcom.models.ClientPersonalInformationDataResponse>, response: Response<foi.air.coachcom.models.ClientPersonalInformationDataResponse>) {
                     if (response.isSuccessful) {
                         val responseChangePersonalInformationData = response.body()
                         val message = responseChangePersonalInformationData?.message
@@ -170,7 +171,7 @@ class ChangePersonalInformation : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<ClientPersonalInformationDataResponse>, t: Throwable) {
+                override fun onFailure(call: Call<foi.air.coachcom.models.ClientPersonalInformationDataResponse>, t: Throwable) {
                     Log.d("ChangePersonalInformation","$t")
                 }
             })

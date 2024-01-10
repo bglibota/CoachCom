@@ -19,22 +19,19 @@ import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.ValueFormatter
 import de.hdodenhof.circleimageview.CircleImageView
-import foi.air.coachcom.ws.models.ImageData
-import foi.air.coachcom.ws.models.MeasurementDataResponse
-import foi.air.coachcom.ws.models.Measurements
-import foi.air.coachcom.ws.models.PhysicalMeasurements
-import foi.air.coachcom.ws.models.TargetMeasurement
-import foi.air.coachcom.ws.models.UserData
-import foi.air.coachcom.ws.models.UserDataResponse
+import foi.air.coachcom.models.ImageData
+import foi.air.coachcom.models.MeasurementDataResponse
+import foi.air.coachcom.models.Measurements
+import foi.air.coachcom.models.PhysicalMeasurements
+import foi.air.coachcom.models.TargetMeasurement
+import foi.air.coachcom.models.UserData
+import foi.air.coachcom.models.UserDataResponse
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.ProfileService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -73,21 +70,21 @@ class ClientProfileFragment : Fragment() {
 
         val profileService: ProfileService = NetworkService.profileService
 
-        val call: Call<UserDataResponse> = profileService.getUserData(userId)
+        val call: Call<foi.air.coachcom.models.UserDataResponse> = profileService.getUserData(userId)
 
-        call.enqueue(object : Callback<UserDataResponse> {
-            override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {
+        call.enqueue(object : Callback<foi.air.coachcom.models.UserDataResponse> {
+            override fun onResponse(call: Call<foi.air.coachcom.models.UserDataResponse>, response: Response<foi.air.coachcom.models.UserDataResponse>) {
 
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    val user: UserData? = responseData?.data
+                    val user: foi.air.coachcom.models.UserData? = responseData?.data
                     val firstName: String? = user?.first_name
                     val lastName: String? = user?.last_name
                     val email: String? = user?.e_mail
                     val phone: String? = user?. phone_number
                     val residence: String? = user?.place_of_residence
                     val sex: String? = user?.sex
-                    val profilePicture: ImageData? = user?.picture
+                    val profilePicture: foi.air.coachcom.models.ImageData? = user?.picture
                     val formattedBirth: String? = user?.formatted_birthdate
 
                     val nameTextView: TextView = rootView.findViewById(R.id.client_profile_name)
@@ -126,17 +123,17 @@ class ClientProfileFragment : Fragment() {
                     sexTextView.text = sex
 
                     val measurementService: MeasurementService = NetworkService.measurementService
-                    val call2: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+                    val call2: Call<foi.air.coachcom.models.MeasurementDataResponse> = measurementService.getMeasurementData(userId)
 
-                    call2.enqueue(object : Callback<MeasurementDataResponse> {
-                        override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
+                    call2.enqueue(object : Callback<foi.air.coachcom.models.MeasurementDataResponse> {
+                        override fun onResponse(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, response: Response<foi.air.coachcom.models.MeasurementDataResponse>) {
                             if (response.isSuccessful) {
                                 val responseMeasurementData = response.body()
-                                val measurements: Measurements? = responseMeasurementData?.data
-                                val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
-                                val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
+                                val measurements: foi.air.coachcom.models.Measurements? = responseMeasurementData?.data
+                                val targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>? = measurements?.target_measurements
+                                val physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>? = measurements?.physical_measurements
 
-                                val firstTargetMeasurement: TargetMeasurement? = targetMeasurements?.firstOrNull()
+                                val firstTargetMeasurement: foi.air.coachcom.models.TargetMeasurement? = targetMeasurements?.firstOrNull()
                                 val height: Float? = firstTargetMeasurement?.height ?: 0f
                                 val heightTextView : TextView = rootView.findViewById(R.id.client_profile_height)
                                 heightTextView.text = height.toString()
@@ -174,7 +171,7 @@ class ClientProfileFragment : Fragment() {
                             }
                         }
 
-                        override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
+                        override fun onFailure(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, t: Throwable) {
                             Log.d("Client","$t")
                         }
                     })
@@ -185,7 +182,7 @@ class ClientProfileFragment : Fragment() {
                 }
             }
 
-            override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
+            override fun onFailure(call: Call<foi.air.coachcom.models.UserDataResponse>, t: Throwable) {
 
                 Log.d("Client","$t")
             }
@@ -218,7 +215,7 @@ class ClientProfileFragment : Fragment() {
         legend.isWordWrapEnabled = true
     }
 
-    private fun setWeightChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setWeightChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val weightEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.weight.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -229,10 +226,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = weightEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual weight data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual weight data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target weight")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target weight")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -244,8 +241,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
@@ -256,7 +253,7 @@ class ClientProfileFragment : Fragment() {
         chart.invalidate()
     }
 
-    private fun setWaistChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setWaistChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val waistEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.waist_circumference.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -267,10 +264,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = waistEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual waist circumference data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual waist circumference data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target waist circumference")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target waist circumference")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -282,8 +279,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
@@ -295,7 +292,7 @@ class ClientProfileFragment : Fragment() {
     }
 
 
-    private fun setChestChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setChestChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val chestEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.chest_circumference.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -306,10 +303,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = chestEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual chest circumference data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual chest circumference data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target chest circumference")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target chest circumference")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -321,8 +318,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
@@ -333,7 +330,7 @@ class ClientProfileFragment : Fragment() {
         chart.invalidate()
     }
 
-    private fun setArmChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setArmChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val armEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.arm_circumference.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -344,10 +341,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = armEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual arm circumference data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual arm circumference data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target arm circumference")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target arm circumference")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -359,8 +356,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
@@ -371,7 +368,7 @@ class ClientProfileFragment : Fragment() {
         chart.invalidate()
     }
 
-    private fun setLegChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setLegChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val legEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.leg_circumference.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -382,10 +379,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = legEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual leg circumference data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual leg circumference data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target leg circumference")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target leg circumference")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -397,8 +394,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }
@@ -409,7 +406,7 @@ class ClientProfileFragment : Fragment() {
         chart.invalidate()
     }
 
-    private fun setHipChartData(targetMeasurements: List<TargetMeasurement>?, physicalMeasurements: List<PhysicalMeasurements>?, chart: BarChart) {
+    private fun setHipChartData(targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>?, physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?, chart: BarChart) {
         val hipEntries: List<BarEntry> = physicalMeasurements?.mapIndexed { index, measurement ->
             BarEntry((index + 1).toFloat(), measurement.hip_circumference.toFloat(), measurement)
         }?.takeIf { it.isNotEmpty() } ?: listOf(BarEntry(1f, 0f))
@@ -420,10 +417,10 @@ class ClientProfileFragment : Fragment() {
 
         val allEntries = hipEntries + targetEntry
 
-        val dataSet1 = BarDataSet(allEntries.filter { it.data is PhysicalMeasurements }, "Actual hip circumference data")
+        val dataSet1 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.PhysicalMeasurements }, "Actual hip circumference data")
         dataSet1.color = Color.parseColor("#9AC0CD")
 
-        val dataSet2 = BarDataSet(allEntries.filter { it.data is TargetMeasurement }, "Target hip circumference")
+        val dataSet2 = BarDataSet(allEntries.filter { it.data is foi.air.coachcom.models.TargetMeasurement }, "Target hip circumference")
         dataSet2.color = Color.parseColor("#8B4513")
 
         val barData = BarData(dataSet1, dataSet2)
@@ -435,8 +432,8 @@ class ClientProfileFragment : Fragment() {
             override fun getFormattedValue(value: Float): String {
                 val date = allEntries.getOrNull(value.toInt() - 1)?.data?.let {
                     when (it) {
-                        is PhysicalMeasurements -> it.formatted_date
-                        is TargetMeasurement -> it.formatted_date
+                        is foi.air.coachcom.models.PhysicalMeasurements -> it.formatted_date
+                        is foi.air.coachcom.models.TargetMeasurement -> it.formatted_date
                         else -> null
                     }
                 }

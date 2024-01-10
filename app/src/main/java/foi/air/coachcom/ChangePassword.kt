@@ -2,22 +2,17 @@ package foi.air.coachcom
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.ws.models.ChangePasswordData
-import foi.air.coachcom.ws.models.ChangePasswordDataResponse
-import foi.air.coachcom.ws.models.PhysicalMeasurementData
-import foi.air.coachcom.ws.models.PhysicalMeasurementDataResponse
+import foi.air.coachcom.models.ChangePasswordData
+import foi.air.coachcom.models.ChangePasswordDataResponse
 import foi.air.coachcom.ws.network.ChangePasswordService
 import foi.air.coachcom.ws.network.NetworkService
-import foi.air.coachcom.ws.network.PhysicalMeasurementService
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,7 +43,7 @@ class ChangePassword : AppCompatActivity() {
             val newPassword = newPasswordEditText.text.toString()
             val repeatedPassword = repeatedPasswordEditText.text.toString()
 
-            val changePasswordData = ChangePasswordData(
+            val changePasswordData = foi.air.coachcom.models.ChangePasswordData(
                 user_id = userId,
                 current_password = currentPassword,
                 new_password = newPassword
@@ -60,10 +55,10 @@ class ChangePassword : AppCompatActivity() {
 
                 val changePasswordService: ChangePasswordService = NetworkService.changePasswordService
 
-                val call: Call<ChangePasswordDataResponse> = changePasswordService.updatePassword(changePasswordData)
+                val call: Call<foi.air.coachcom.models.ChangePasswordDataResponse> = changePasswordService.updatePassword(changePasswordData)
 
-                call.enqueue(object : Callback<ChangePasswordDataResponse> {
-                    override fun onResponse(call: Call<ChangePasswordDataResponse>, response: Response<ChangePasswordDataResponse>) {
+                call.enqueue(object : Callback<foi.air.coachcom.models.ChangePasswordDataResponse> {
+                    override fun onResponse(call: Call<foi.air.coachcom.models.ChangePasswordDataResponse>, response: Response<foi.air.coachcom.models.ChangePasswordDataResponse>) {
                         if (response.isSuccessful) {
                             val responseChangePasswordData = response.body()
                             val message = responseChangePasswordData?.message
@@ -84,7 +79,7 @@ class ChangePassword : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<ChangePasswordDataResponse>, t: Throwable) {
+                    override fun onFailure(call: Call<foi.air.coachcom.models.ChangePasswordDataResponse>, t: Throwable) {
                         Log.d("ChangePassword","$t")
                     }
                 })

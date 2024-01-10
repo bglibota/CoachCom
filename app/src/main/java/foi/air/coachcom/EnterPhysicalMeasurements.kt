@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.ws.models.MeasurementDataResponse
-import foi.air.coachcom.ws.models.Measurements
-import foi.air.coachcom.ws.models.PhysicalMeasurementData
-import foi.air.coachcom.ws.models.PhysicalMeasurementDataResponse
-import foi.air.coachcom.ws.models.PhysicalMeasurements
-import foi.air.coachcom.ws.models.TargetMeasurement
+import foi.air.coachcom.models.MeasurementDataResponse
+import foi.air.coachcom.models.Measurements
+import foi.air.coachcom.models.PhysicalMeasurementData
+import foi.air.coachcom.models.PhysicalMeasurementDataResponse
+import foi.air.coachcom.models.PhysicalMeasurements
+import foi.air.coachcom.models.TargetMeasurement
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.PhysicalMeasurementService
@@ -30,8 +30,6 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 class EnterPhysicalMeasurements : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,15 +47,15 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
 
         val measurementService: MeasurementService = NetworkService.measurementService
 
-        val call: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+        val call: Call<foi.air.coachcom.models.MeasurementDataResponse> = measurementService.getMeasurementData(userId)
 
-        call.enqueue(object : Callback<MeasurementDataResponse> {
-            override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
+        call.enqueue(object : Callback<foi.air.coachcom.models.MeasurementDataResponse> {
+            override fun onResponse(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, response: Response<foi.air.coachcom.models.MeasurementDataResponse>) {
                 if (response.isSuccessful) {
                     val responseMeasurementData = response.body()
-                    val measurements: Measurements? = responseMeasurementData?.data
-                    val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
-                    val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
+                    val measurements: foi.air.coachcom.models.Measurements? = responseMeasurementData?.data
+                    val targetMeasurements: List<foi.air.coachcom.models.TargetMeasurement>? = measurements?.target_measurements
+                    val physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>? = measurements?.physical_measurements
 
                     val recyclerView: RecyclerView = findViewById(R.id.physical_recyclerView)
                     val physicalMeasurementsAdapter = PhysicalMeasurementsAdapter(physicalMeasurements)
@@ -72,7 +70,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
+            override fun onFailure(call: Call<foi.air.coachcom.models.MeasurementDataResponse>, t: Throwable) {
                 Log.d("EnterPhysicalMeasurements","$t")
             }
         })
@@ -94,7 +92,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
             val hipCircumference = hipEditText.text.toString().toFloat()
 
 
-            val physicalMeasurementsData = PhysicalMeasurementData(
+            val physicalMeasurementsData = foi.air.coachcom.models.PhysicalMeasurementData(
                 user_id = userId,
                 weight = weight,
                 waist_circumference = waistCircumference,
@@ -106,10 +104,10 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
 
             val physicalMeasurementService: PhysicalMeasurementService = NetworkService.physicalMeasurementService
 
-            val call: Call<PhysicalMeasurementDataResponse> = physicalMeasurementService.enterPhysicalMeasurements(physicalMeasurementsData)
+            val call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse> = physicalMeasurementService.enterPhysicalMeasurements(physicalMeasurementsData)
 
-            call.enqueue(object : Callback<PhysicalMeasurementDataResponse> {
-                override fun onResponse(call: Call<PhysicalMeasurementDataResponse>, response: Response<PhysicalMeasurementDataResponse>) {
+            call.enqueue(object : Callback<foi.air.coachcom.models.PhysicalMeasurementDataResponse> {
+                override fun onResponse(call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse>, response: Response<foi.air.coachcom.models.PhysicalMeasurementDataResponse>) {
                     if (response.isSuccessful) {
                         val responsePhysicalMeasurementData = response.body()
                         val message = responsePhysicalMeasurementData?.message
@@ -132,7 +130,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<PhysicalMeasurementDataResponse>, t: Throwable) {
+                override fun onFailure(call: Call<foi.air.coachcom.models.PhysicalMeasurementDataResponse>, t: Throwable) {
                     Log.d("EnterPhysicalMeasurements","$t")
                 }
             })
@@ -142,7 +140,7 @@ class EnterPhysicalMeasurements : AppCompatActivity() {
     }
 }
 
-class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<PhysicalMeasurements>?) :
+class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<foi.air.coachcom.models.PhysicalMeasurements>?) :
     RecyclerView.Adapter<PhysicalMeasurementsAdapter.ViewHolder>() {
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -167,7 +165,7 @@ class PhysicalMeasurementsAdapter(private var physicalMeasurements: List<Physica
         return physicalMeasurements?.size ?: 0
     }
 
-    private fun bindData(containerLayout: LinearLayout, measurement: PhysicalMeasurements) {
+    private fun bindData(containerLayout: LinearLayout, measurement: foi.air.coachcom.models.PhysicalMeasurements) {
 
         containerLayout.removeAllViews()
 
