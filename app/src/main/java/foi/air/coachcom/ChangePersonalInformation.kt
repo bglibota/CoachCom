@@ -27,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class ChangePersonalInformation : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

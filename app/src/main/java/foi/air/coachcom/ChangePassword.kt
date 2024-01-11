@@ -24,7 +24,7 @@ class ChangePassword : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_password)
 
-        val back: ImageView = findViewById(R.id.change_physical_back)
+        val back: ImageView = findViewById(R.id.change_password_back)
         back.setOnClickListener {
             onBackPressed()
         }

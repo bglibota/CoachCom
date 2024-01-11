@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F2F2"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MealPlan">
+
+        <ImageView
+            android:id="@+id/meal_plan_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:id="@+id/meal_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/meal_plan_back"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Enter Meal Plan"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dayTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/meal_plan_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_day"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Day"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/breakfastTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/breakfastImageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_breakfast"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Breakfast"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/morningSnackTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/morningSnackImageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_morningSnack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Morning Snack"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/lunchTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/lunchImageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_lunch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Lunch"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/afternoonSnackTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/afternoonSnackImageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_afternoonSnack"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Afternoon Snack"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/dinnerTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/dinnerImageButton"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/meal_plan_dinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Dinner"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/meal_plan_enterButton"
+            android:layout_width="330dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/dinnerTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="29dp"
+            android:layout_marginBottom="10dp"
+            android:text="Enter Meal Plan" />
+
+        <ImageButton
+            android:id="@+id/breakfastImageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/dayTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="Tap to choose breakfast image"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/breakfastTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/breakfastImageButton"
+            android:layout_alignEnd="@id/breakfastImageButton"
+            android:layout_alignTop="@id/breakfastImageButton"
+            android:layout_alignBottom="@id/breakfastImageButton"
+            android:gravity="center"
+            android:text="Tap to choose breakfast image"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+
+        <ImageButton
+            android:id="@+id/morningSnackImageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/breakfastTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="Tap to choose morning snack image"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/morningSnackTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/morningSnackImageButton"
+            android:layout_alignEnd="@id/morningSnackImageButton"
+            android:layout_alignTop="@id/morningSnackImageButton"
+            android:layout_alignBottom="@id/morningSnackImageButton"
+            android:gravity="center"
+            android:text="Tap to choose morning snack image"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/lunchImageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/morningSnackTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="Tap to choose lunch image"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/lunchTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/lunchImageButton"
+            android:layout_alignEnd="@id/lunchImageButton"
+            android:layout_alignTop="@id/lunchImageButton"
+            android:layout_alignBottom="@id/lunchImageButton"
+            android:gravity="center"
+            android:text="Tap to choose lunch image"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/afternoonSnackImageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/lunchTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="Tap to choose afternoon snack image"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/afternoonSnackTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/afternoonSnackImageButton"
+            android:layout_alignEnd="@id/afternoonSnackImageButton"
+            android:layout_alignTop="@id/afternoonSnackImageButton"
+            android:layout_alignBottom="@id/afternoonSnackImageButton"
+            android:gravity="center"
+            android:text="Tap to choose afternoon snack image"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/dinnerImageButton"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_below="@+id/afternoonSnackTextInputLayout"
+            android:layout_alignParentStart="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="71dp"
+            android:layout_marginTop="40dp"
+            android:contentDescription="Tap to choose dinner image"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/dinnerTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@id/dinnerImageButton"
+            android:layout_alignEnd="@id/dinnerImageButton"
+            android:layout_alignTop="@id/dinnerImageButton"
+            android:layout_alignBottom="@id/dinnerImageButton"
+            android:gravity="center"
+            android:text="Tap to choose dinner image"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+</ScrollView>
