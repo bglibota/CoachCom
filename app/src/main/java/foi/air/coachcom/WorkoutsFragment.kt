@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
+import foi.air.plan.Plan
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,8 +44,7 @@ class WorkoutsFragment : Fragment() {
 
         planOpen.setOnClickListener{
 
-            val intent = Intent()
-            intent.setClassName("foi.air.plan", "foi.air.plan.MainActivity")
+            val intent = Intent(requireContext(), Plan::class.java)
             startActivity(intent)
 
         }

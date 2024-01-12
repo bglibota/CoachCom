@@ -123,7 +123,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/physical_measurements_title"
+            android:id="@+id/change_physical_title"
             android:layout_width="259dp"
             android:layout_height="36dp"
             android:layout_below="@+id/separatorView14"
@@ -507,7 +507,7 @@
             android:id="@+id/client_profile_weight_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/physical_measurements_title"
+            android:layout_below="@+id/change_physical_title"
             android:layout_alignParentStart="true"
             android:layout_marginStart="44dp"
             android:layout_marginTop="50dp"

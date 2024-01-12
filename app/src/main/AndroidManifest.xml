@@ -38,6 +38,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".ChangePassword" />
+        <activity android:name="foi.air.plan.Plan" />
     </application>
 
 </manifest>
