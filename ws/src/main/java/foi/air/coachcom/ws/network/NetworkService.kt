@@ -19,4 +19,5 @@ object NetworkService {
     val targetMeasurementService: TargetMeasurementService = instance.create(TargetMeasurementService::class.java)
     val changePersonalInformationService: ChangePersonalInformationService = instance.create(ChangePersonalInformationService::class.java)
     val changePasswordService: ChangePasswordService = instance.create(ChangePasswordService::class.java)
+    val mealPlanService: MealPlanService = instance.create(MealPlanService::class.java)
 }

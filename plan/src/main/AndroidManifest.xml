@@ -9,11 +9,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoachCom">
         <activity
+            android:name=".Successful"
+            android:exported="false" />
+        <activity
             android:name=".MealPlan"
             android:exported="false" />
         <activity
             android:name=".Plan"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
