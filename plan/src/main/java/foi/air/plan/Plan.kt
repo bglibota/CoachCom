@@ -18,5 +18,14 @@ class Plan : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+        val weightLossPlan: Button = findViewById(R.id.plan_weightLoss_button)
+
+        weightLossPlan.setOnClickListener{
+
+            val intent = Intent(this@Plan, WeightLossPlan::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
