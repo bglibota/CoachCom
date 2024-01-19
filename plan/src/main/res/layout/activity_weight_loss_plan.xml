@@ -105,28 +105,76 @@
             android:id="@+id/difficultySpinner"
             android:layout_width="330dp"
             android:layout_height="60dp"
+            android:layout_below="@+id/weight_loss_plan_difficulty_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="00dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exercisesRecyclerView"
+            android:layout_width="330dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/weight_loss_plan_choose_exercises_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:choiceMode="multipleChoice"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <Button
+            android:id="@+id/weight_loss_plan_enterDataButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:text="Enter weight loss plan data" />
+
+        <TextView
+            android:id="@+id/weight_loss_plan_difficulty_title"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/endDateTextInputLayout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp" />
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:text="Select plan difficulty:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <ListView
-            android:id="@+id/exercisesListView"
+        <TextView
+            android:id="@+id/weight_loss_plan_choose_exercises_title"
             android:layout_width="330dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:layout_below="@+id/difficultySpinner"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
-            android:choiceMode="multipleChoice"/>
+            android:gravity="center_vertical"
+            android:text="Choose exercises for your weight loss plan:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-        <Button
-            android:id="@+id/enterDataButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/exercisesListView"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginBottom="20dp"
-            android:text="Enter weight loss plan data" />
+        <TextView
+            android:id="@+id/weight_loss_plan_no_exercises_message"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="You have no entered exercises yet!"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/weight_loss_plan_imageView_mark"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            app:srcCompat="@drawable/mark" />
 
 
     </RelativeLayout>
