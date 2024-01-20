@@ -22,4 +22,5 @@ object NetworkService {
     val mealPlanService: MealPlanService = instance.create(MealPlanService::class.java)
     val planWeightService: PlanWeightService = instance.create(PlanWeightService::class.java)
     val exercisesService: ExercisesService = instance.create(ExercisesService::class.java)
+    val weightLossPlanService: WeightLossPlanService = instance.create(WeightLossPlanService::class.java)
 }

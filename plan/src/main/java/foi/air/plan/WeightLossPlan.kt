@@ -1,14 +1,17 @@
 package foi.air.plan
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -20,20 +23,31 @@ import com.google.android.material.textfield.TextInputEditText
 import foi.air.coachcom.ws.network.ExercisesService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.PlanWeightService
+import foi.air.coachcom.ws.network.WeightLossPlanService
 import foi.air.core.models.Exercise
 import foi.air.core.models.ExerciseDataResponse
 import foi.air.core.models.PlanDifficulty
 import foi.air.core.models.PlanWeightDataResponse
+import foi.air.core.models.WeightLossPlanData
+import foi.air.core.models.WeightLossPlanDataResponse
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 class WeightLossPlan : AppCompatActivity() {
+
+    private var selectedPlanWeightId: Int = 0
+    private val selectedExerciseIds = mutableListOf<Int>()
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_weight_loss_plan)
@@ -112,6 +126,19 @@ class WeightLossPlan : AppCompatActivity() {
                     val difficultySpinner: Spinner = findViewById(R.id.difficultySpinner)
                     difficultySpinner.adapter = adapter
 
+                    difficultySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                            val selectedDifficulty = data?.get(position)
+                            selectedDifficulty?.let {
+                                selectedPlanWeightId = it.plan_weight_id
+                            }
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            selectedPlanWeightId = 0
+                        }
+                    }
+
                 }else{
                     val error = response.errorBody()
                     val errorBody = response.errorBody()?.string()
@@ -157,7 +184,7 @@ class WeightLossPlan : AppCompatActivity() {
                         markImageView.visibility = View.GONE
 
                         val layoutManager = LinearLayoutManager(this@WeightLossPlan)
-                        val adapter = ExerciseAdapter(this@WeightLossPlan, exercisesList)
+                        val adapter = ExerciseAdapter(this@WeightLossPlan, exercisesList, selectedExerciseIds)
 
                         recyclerView.layoutManager = layoutManager
                         recyclerView.adapter = adapter
@@ -181,16 +208,107 @@ class WeightLossPlan : AppCompatActivity() {
 
         val enterWeightLossPlan: Button = findViewById(R.id.weight_loss_plan_enterDataButton)
 
+        enterWeightLossPlan.setOnClickListener{
+
+            val nameEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_name)
+            val name = nameEditText.text.toString()
+
+            val descriptionEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_description)
+            val description = descriptionEditText.text.toString()
+
+            val startDateEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_start_date)
+
+
+            val startDateString = startDateEditText.text.toString()
+
+            val originalStartDate: LocalDate = if (startDateString.isNotBlank()) {
+                try {
+                    LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                } catch (e: DateTimeParseException) {
+                    LocalDate.now()
+                }
+            } else {
+                LocalDate.now()
+            }
+
+            val startDate: String = originalStartDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+
+            val endDateEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_end_date)
+            val endDateString = endDateEditText.text.toString()
+
+            val originalEndDate: LocalDate = if (endDateString.isNotBlank()) {
+                try {
+                    LocalDate.parse(endDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                } catch (e: DateTimeParseException) {
+                    LocalDate.now()
+                }
+            } else {
+                LocalDate.now()
+            }
+
+            val endDate: String = originalEndDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+
+
+            val planDifficulty = selectedPlanWeightId
+
+            val exercisesId = selectedExerciseIds
+
+            val weightLossPlanData = WeightLossPlanData(
+                user_id = userId,
+                name = name,
+                description = description,
+                start_date = startDate,
+                end_date = endDate,
+                plan_weight_id = planDifficulty,
+                exercises = exercisesId
+            )
+
+            val weightLossPlanService : WeightLossPlanService = NetworkService.weightLossPlanService
+
+            val call2: Call<WeightLossPlanDataResponse> = weightLossPlanService.enterWeightLossPlan(weightLossPlanData)
+
+            call2.enqueue(object : Callback<WeightLossPlanDataResponse> {
+                override fun onResponse(call: Call<WeightLossPlanDataResponse>, response: Response<WeightLossPlanDataResponse>) {
+                    if (response.isSuccessful) {
+                        val responseWeightLossPlanData = response.body()
+                        val message = responseWeightLossPlanData?.message
+
+                        val intent = Intent(this@WeightLossPlan, Successful::class.java)
+                        intent.putExtra("newText", "$message")
+                        startActivity(intent)
+                        finish()
+
+                    }else{
+                        val error = response.errorBody()
+                        val errorBody = response.errorBody()?.string()
+                        val errorJson = JSONObject(errorBody)
+                        val errorMessage = errorJson.optString("message")
+
+                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
+                        Log.d("WeightLossPlan","$error")
+                    }
+                }
+
+                override fun onFailure(call: Call<WeightLossPlanDataResponse>, t: Throwable) {
+                    Log.d("WeightLossPlan","$t")
+                }
+            })
+
+        }
+
 
     }
 }
 
-class ExerciseAdapter(private val context: Context, private val exercises: List<Exercise>) :
+class ExerciseAdapter(private val context: Context, private val exercises: List<Exercise>, private val selectedExerciseIds: MutableList<Int>) :
     RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder>() {
+
 
     inner class ExerciseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.nameTextView)
         val descriptionTextView: TextView = itemView.findViewById(R.id.descriptionTextView)
+        val exerciseCheckBox: CheckBox = itemView.findViewById(R.id.exerciseCheckBox)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseViewHolder {
@@ -201,8 +319,26 @@ class ExerciseAdapter(private val context: Context, private val exercises: List<
     override fun onBindViewHolder(holder: ExerciseViewHolder, position: Int) {
         val exercise = exercises[position]
 
+        holder.exerciseCheckBox.tag = exercise.exercise_id
         holder.nameTextView.text = exercise.name
         holder.descriptionTextView.text = exercise.description
+
+        holder.exerciseCheckBox.isChecked = selectedExerciseIds.contains(exercise.exercise_id)
+
+        holder.exerciseCheckBox.setOnCheckedChangeListener { _, isChecked ->
+
+            val exerciseId = holder.exerciseCheckBox.tag as Int
+
+            if (isChecked) {
+
+                selectedExerciseIds.add(exerciseId)
+            } else {
+
+                selectedExerciseIds.remove(exerciseId)
+            }
+
+        }
+
     }
 
 
