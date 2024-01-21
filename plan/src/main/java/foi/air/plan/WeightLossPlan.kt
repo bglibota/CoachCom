@@ -217,18 +217,18 @@ class WeightLossPlan : AppCompatActivity() {
             val description = descriptionEditText.text.toString()
 
             val startDateEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_start_date)
-
-
             val startDateString = startDateEditText.text.toString()
 
-            val originalStartDate: LocalDate = if (startDateString.isNotBlank()) {
-                try {
-                    LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                } catch (e: DateTimeParseException) {
-                    LocalDate.now()
+            val originalStartDate: String = try {
+                if (startDateString.isNotBlank()) {
+                    val originalStartDate = LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                    originalStartDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                } else {
+                    ""
                 }
-            } else {
-                LocalDate.now()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ""
             }
 
             val startDate: String = originalStartDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
@@ -237,14 +237,16 @@ class WeightLossPlan : AppCompatActivity() {
             val endDateEditText: TextInputEditText = findViewById(R.id.weight_loss_plan_end_date)
             val endDateString = endDateEditText.text.toString()
 
-            val originalEndDate: LocalDate = if (endDateString.isNotBlank()) {
-                try {
-                    LocalDate.parse(endDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-                } catch (e: DateTimeParseException) {
-                    LocalDate.now()
+            val originalEndDate: String = try {
+                if (endDateString.isNotBlank()) {
+                    val originalEndDate = LocalDate.parse(startDateString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                    originalEndDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                } else {
+                    ""
                 }
-            } else {
-                LocalDate.now()
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ""
             }
 
             val endDate: String = originalEndDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
