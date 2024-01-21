@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CoachCom">
         <activity
+            android:name=".WeightLossPlan"
+            android:exported="false" />
+        <activity
             android:name=".Successful"
             android:exported="false" />
         <activity

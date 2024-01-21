@@ -101,7 +101,6 @@ class MealPlan : AppCompatActivity() {
             val dinnerEditText: TextInputEditText = findViewById(R.id.meal_plan_dinner)
             val dinner = dinnerEditText.text.toString()
 
-            Log.d("MealPlan","${byteArrayDinnerPicture.toString()}")
 
             val mealPlanData = MealPlanData(
                 user_id = userId,

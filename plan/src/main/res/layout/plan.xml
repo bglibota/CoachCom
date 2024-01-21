@@ -11,74 +11,95 @@
         android:layout_height="match_parent"
         tools:context=".Plan">
 
-    <View
-        android:id="@+id/separatorView"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/plan_title"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="-21dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="-60dp"
-        android:background="@android:color/darker_gray" />
+        <Button
+            android:id="@+id/plan_weightLoss_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weight_loss_image"
+            android:layout_alignParentEnd="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="128dp"
+            android:text="Weight loss plan" />
 
-    <TextView
-        android:id="@+id/plan_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:text="Adding a plan"
-        android:textSize="24sp" />
+        <ImageView
+            android:id="@+id/weight_loss_image"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/plan_personalizedProgram_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="171dp"
+            android:layout_marginTop="60dp"
+            app:srcCompat="@drawable/weight_loss" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/separatorView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
-        android:text="Choose the plan type you want to add"
-        android:textSize="16sp" />
+        <View
+            android:id="@+id/separatorView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/plan_title"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="-21dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="-60dp"
+            android:background="@android:color/darker_gray" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/textView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/running" />
+        <TextView
+            android:id="@+id/plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="Adding a plan"
+            android:textSize="24sp" />
 
-    <Button
-        android:id="@+id/plan_personalizedProgram_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Personalized program" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/separatorView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Choose the plan type you want to add"
+            android:textSize="16sp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_below="@+id/plan_personalizedProgram_button"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        app:srcCompat="@drawable/diet" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            app:srcCompat="@drawable/running" />
 
-    <Button
-        android:id="@+id/plan_mealPlan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Meal plan" />
+        <Button
+            android:id="@+id/plan_personalizedProgram_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Personalized program" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@+id/plan_weightLoss_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="60dp"
+            app:srcCompat="@drawable/diet" />
+
+        <Button
+            android:id="@+id/plan_mealPlan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imageView2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text="Meal plan" />
 
     </RelativeLayout>
 </ScrollView>

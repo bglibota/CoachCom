@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F6F2F2"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".WeightLossPlan">
+
+        <ImageView
+            android:id="@+id/weight_loss_plan_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/baseline_arrow_back_ios_24" />
+
+        <TextView
+            android:id="@+id/weight_loss_plan_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/weight_loss_plan_back"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="20dp"
+            android:text="Enter weight loss plan"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/nameTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/weight_loss_plan_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="60dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_loss_plan_name"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Name"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/descriptionTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="150dp"
+            android:layout_below="@+id/nameTextInputLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_loss_plan_description"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Description"
+                android:inputType="textMultiLine"
+                android:maxLength="255" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/startDateTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/descriptionTextInputLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_loss_plan_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="Start Date"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/endDateTextInputLayout"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/startDateTextInputLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/weight_loss_plan_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="End Date"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Spinner
+            android:id="@+id/difficultySpinner"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/weight_loss_plan_difficulty_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="00dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/exercisesRecyclerView"
+            android:layout_width="330dp"
+            android:layout_height="300dp"
+            android:layout_below="@+id/weight_loss_plan_choose_exercises_title"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:choiceMode="multipleChoice"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        <Button
+            android:id="@+id/weight_loss_plan_enterDataButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="20dp"
+            android:text="Enter weight loss plan data" />
+
+        <TextView
+            android:id="@+id/weight_loss_plan_difficulty_title"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/endDateTextInputLayout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:text="Select plan difficulty:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/weight_loss_plan_choose_exercises_title"
+            android:layout_width="330dp"
+            android:layout_height="60dp"
+            android:layout_below="@+id/difficultySpinner"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center_vertical"
+            android:text="Choose exercises for your weight loss plan:"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/weight_loss_plan_no_exercises_message"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="You have no entered exercises yet!"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+        <ImageView
+            android:id="@+id/weight_loss_plan_imageView_mark"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/exercisesRecyclerView"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="0dp"
+            app:srcCompat="@drawable/mark" />
+
+
+    </RelativeLayout>
+</ScrollView>
