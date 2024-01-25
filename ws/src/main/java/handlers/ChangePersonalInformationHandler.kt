@@ -7,6 +7,7 @@ import foi.air.core.models.ClientPersonalInformationData
 import foi.air.core.models.ClientPersonalInformationDataResponse
 import foi.air.core.models.UserData
 import foi.air.core.models.UserDataResponse
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,8 +31,10 @@ class DefaultChangePersonalInformationHandler : ChangePersonalInformationHandler
                     val user: UserData? = responseData?.data
                     callback.invoke(true, user, null)
                 } else {
-                    val error = response.errorBody()?.string() ?: "Unknown error"
-                    callback.invoke(false, null, error)
+                    val errorResponse = response.errorBody()?.string() ?: "Unknown error"
+                    val errorJson = JSONObject(errorResponse)
+                    val errorMessage = errorJson.optString("message", "Unknown error")
+                    callback.invoke(false, null, errorMessage)
                 }
             }
 
@@ -52,8 +55,10 @@ class DefaultChangePersonalInformationHandler : ChangePersonalInformationHandler
                     val message = responseChangePersonalInformationData?.message
                     callback.invoke(true, message, null)
                 } else {
-                    val error = response.errorBody()?.string() ?: "Unknown error"
-                    callback.invoke(false, null, error)
+                    val errorResponse = response.errorBody()?.string() ?: "Unknown error"
+                    val errorJson = JSONObject(errorResponse)
+                    val errorMessage = errorJson.optString("message", "Unknown error")
+                    callback.invoke(false, null, errorMessage)
                 }
             }
 
