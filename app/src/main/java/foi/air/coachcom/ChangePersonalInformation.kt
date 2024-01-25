@@ -22,7 +22,7 @@ import java.time.format.DateTimeFormatter
 
 class ChangePersonalInformation : AppCompatActivity() {
 
-    val changePersonalInformationHandler: ChangePersonalInformationHandler = DefaultChangePersonalInformationHandler()
+    private val changePersonalInformationHandler: ChangePersonalInformationHandler = DefaultChangePersonalInformationHandler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_personal_information)
