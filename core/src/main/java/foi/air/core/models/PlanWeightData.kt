@@ -1,7 +1,7 @@
 package foi.air.core.models
 
 data class PlanWeightDataResponse(
-    val success: Boolean,
+    val success: String,
     val message: String,
     val data: List<PlanDifficulty>
 )
