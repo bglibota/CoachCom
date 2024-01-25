@@ -9,26 +9,20 @@ import android.widget.Button
 import android.widget.ImageView
 import com.google.android.material.snackbar.Snackbar
 import foi.air.core.models.ClientPersonalInformationData
-import foi.air.core.models.ClientPersonalInformationDataResponse
-import foi.air.core.models.UserData
-import foi.air.core.models.UserDataResponse
-import foi.air.coachcom.ws.network.ChangePersonalInformationService
-import foi.air.coachcom.ws.network.NetworkService
-import foi.air.coachcom.ws.network.ProfileService
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.textfield.TextInputEditText
+import handlers.ChangePersonalInformationHandler
+import handlers.DefaultChangePersonalInformationHandler
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class ChangePersonalInformation : AppCompatActivity() {
+
+    val changePersonalInformationHandler: ChangePersonalInformationHandler = DefaultChangePersonalInformationHandler()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_change_personal_information)
@@ -50,41 +44,26 @@ class ChangePersonalInformation : AppCompatActivity() {
         val sharedPrefs = appContext.getSharedPreferences("User", Context.MODE_PRIVATE)
         val userId = sharedPrefs.getInt("user_id", 0)
 
-        val profileService: ProfileService = NetworkService.profileService
-
-        val call: Call<UserDataResponse> = profileService.getUserData(userId)
-
-        call.enqueue(object : Callback<UserDataResponse> {
-            override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {
-                if (response.isSuccessful) {
-                    val responseData = response.body()
-                    val user: UserData? = responseData?.data
-
-                    val firstName: TextInputEditText = findViewById(R.id.change_personal_firstName)
-                    firstName.setText(user?.first_name)
-                    val lastName: TextInputEditText = findViewById(R.id.change_personal_lastName)
-                    lastName.setText(user?.last_name)
-                    val email: TextInputEditText = findViewById(R.id.change_personal_email)
-                    email.setText(user?.e_mail)
-                    val birthday: TextInputEditText = findViewById(R.id.change_personal_birthday)
-                    birthday.setText(user?.formatted_birthdate)
-                    val phone: TextInputEditText = findViewById(R.id.change_personal_phone)
-                    phone.setText(user?.phone_number)
-                    val residence: TextInputEditText = findViewById(R.id.change_personal_place)
-                    residence.setText(user?.place_of_residence)
-                    val sex: TextInputEditText = findViewById(R.id.change_personal_sex)
-                    sex.setText(user?.sex)
-
-                }else{
-                    val error = response.errorBody()
-                    Log.d("ChangePersonalInformation","$error")
-                }
+        changePersonalInformationHandler.getUserData(userId) { success, user, error ->
+            if (success) {
+                val firstName: TextInputEditText = findViewById(R.id.change_personal_firstName)
+                firstName.setText(user?.first_name)
+                val lastName: TextInputEditText = findViewById(R.id.change_personal_lastName)
+                lastName.setText(user?.last_name)
+                val email: TextInputEditText = findViewById(R.id.change_personal_email)
+                email.setText(user?.e_mail)
+                val birthday: TextInputEditText = findViewById(R.id.change_personal_birthday)
+                birthday.setText(user?.formatted_birthdate)
+                val phone: TextInputEditText = findViewById(R.id.change_personal_phone)
+                phone.setText(user?.phone_number)
+                val residence: TextInputEditText = findViewById(R.id.change_personal_place)
+                residence.setText(user?.place_of_residence)
+                val sex: TextInputEditText = findViewById(R.id.change_personal_sex)
+                sex.setText(user?.sex)
+            } else {
+                Log.d("ChangePersonalInformation", "$error")
             }
-
-            override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
-                Log.d("ChangePersonalInformation","$t")
-            }
-        })
+        }
 
         val birthdayEditText: TextInputEditText = findViewById(R.id.change_personal_birthday)
 
@@ -142,38 +121,18 @@ class ChangePersonalInformation : AppCompatActivity() {
                     sex = sex
                 )
 
-            val changePersonalInformationService: ChangePersonalInformationService = NetworkService.changePersonalInformationService
 
-            val call: Call<ClientPersonalInformationDataResponse> = changePersonalInformationService.savePersonalInformation(changePersonalInformationData)
-
-            call.enqueue(object : Callback<ClientPersonalInformationDataResponse> {
-                override fun onResponse(call: Call<ClientPersonalInformationDataResponse>, response: Response<ClientPersonalInformationDataResponse>) {
-                    if (response.isSuccessful) {
-                        val responseChangePersonalInformationData = response.body()
-                        val message = responseChangePersonalInformationData?.message
-
-                        val intent = Intent(this@ChangePersonalInformation, SuccessfulChange::class.java)
-                        intent.putExtra("newText", "$message")
-                        startActivity(intent)
-                        finish()
-
-
-
-                    }else{
-                        val error = response.errorBody()
-                        val errorBody = response.errorBody()?.string()
-                        val errorJson = JSONObject(errorBody)
-                        val errorMessage = errorJson.optString("message")
-
-                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                        Log.d("ChangePersonalInformation","$error")
-                    }
+            changePersonalInformationHandler.savePersonalInformation(changePersonalInformationData) { success, message, error ->
+                if (success) {
+                    val intent = Intent(this, SuccessfulChange::class.java)
+                    intent.putExtra("newText", message)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                    Log.d("ChangePersonalInformation", "$error")
                 }
-
-                override fun onFailure(call: Call<ClientPersonalInformationDataResponse>, t: Throwable) {
-                    Log.d("ChangePersonalInformation","$t")
-                }
-            })
+            }
 
         }
     }
