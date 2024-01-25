@@ -1,9 +1,7 @@
 package handlers
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
-import com.google.android.material.snackbar.Snackbar
 import foi.air.core.models.LoginData
 import foi.air.core.models.ResponseLoginData
 import foi.air.coachcom.ws.network.LoginService

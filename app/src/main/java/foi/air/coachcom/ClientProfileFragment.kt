@@ -29,6 +29,8 @@ import foi.air.core.models.UserDataResponse
 import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.ProfileService
+import handlers.ClientProfileHandler
+import handlers.DefaultClientProfileHandler
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -36,6 +38,8 @@ import retrofit2.Response
 
 
 class ClientProfileFragment : Fragment() {
+
+    private val clientProfileHandler: ClientProfileHandler = DefaultClientProfileHandler()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,125 +52,93 @@ class ClientProfileFragment : Fragment() {
 
         val userId = sharedPrefs.getInt("user_id", 0)
 
-        val profileService: ProfileService = NetworkService.profileService
+        clientProfileHandler.getUserData(userId) { success, user, error ->
+            if (success) {
+                val firstName: String? = user?.first_name
+                val lastName: String? = user?.last_name
+                val email: String? = user?.e_mail
+                val phone: String? = user?. phone_number
+                val residence: String? = user?.place_of_residence
+                val sex: String? = user?.sex
+                val profilePicture: ImageData? = user?.picture
+                val formattedBirth: String? = user?.formatted_birthdate
 
-        val call: Call<UserDataResponse> = profileService.getUserData(userId)
+                val nameTextView: TextView = rootView.findViewById(R.id.client_profile_name)
+                nameTextView.text = "$firstName $lastName"
 
-        call.enqueue(object : Callback<UserDataResponse> {
-            override fun onResponse(call: Call<UserDataResponse>, response: Response<UserDataResponse>) {
+                val clientImageView : CircleImageView = rootView.findViewById(R.id.client_profile_image)
+                val drawableUser = R.drawable.user
 
-                if (response.isSuccessful) {
-                    val responseData = response.body()
-                    val user: UserData? = responseData?.data
-                    val firstName: String? = user?.first_name
-                    val lastName: String? = user?.last_name
-                    val email: String? = user?.e_mail
-                    val phone: String? = user?. phone_number
-                    val residence: String? = user?.place_of_residence
-                    val sex: String? = user?.sex
-                    val profilePicture: ImageData? = user?.picture
-                    val formattedBirth: String? = user?.formatted_birthdate
+                if (profilePicture?.data != null) {
+                    val byteArray = profilePicture.data.toUByteArray().toByteArray()
 
-                    val nameTextView: TextView = rootView.findViewById(R.id.client_profile_name)
-                    nameTextView.text = "$firstName $lastName"
-
-                    val clientImageView : CircleImageView = rootView.findViewById(R.id.client_profile_image)
-                    val drawableUser = R.drawable.user
-
-                    if (profilePicture?.data != null) {
-                        val byteArray = profilePicture.data.toUByteArray().toByteArray()
-
-                        Glide.with(this@ClientProfileFragment)
-                            .load(byteArray)
-                            .into(clientImageView)
-                    } else {
-                        clientImageView.setImageResource(drawableUser)
-                    }
-                    
-
-                    val name1TextView: TextView = rootView.findViewById(R.id.client_profile_name_view)
-                    name1TextView.text = "$firstName $lastName"
-
-                    val emailTextView: TextView = rootView.findViewById(R.id.client_profile_email)
-                    emailTextView.text = email
-
-                    val birthdayTextView : TextView = rootView.findViewById(R.id.client_profile_birthday)
-                    birthdayTextView.text = formattedBirth
-
-                    val phoneTextView : TextView = rootView.findViewById(R.id.client_profile_phone)
-                    phoneTextView.text = phone
-
-                    val residenceTextView : TextView = rootView.findViewById(R.id.client_profile_place)
-                    residenceTextView.text = residence
-
-                    val sexTextView : TextView = rootView.findViewById(R.id.client_profile_sex)
-                    sexTextView.text = sex
-
-                    val measurementService: MeasurementService = NetworkService.measurementService
-                    val call2: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
-
-                    call2.enqueue(object : Callback<MeasurementDataResponse> {
-                        override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
-                            if (response.isSuccessful) {
-                                val responseMeasurementData = response.body()
-                                val measurements: Measurements? = responseMeasurementData?.data
-                                val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
-                                val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
-
-                                val firstTargetMeasurement: TargetMeasurement? = targetMeasurements?.firstOrNull()
-                                val height: Float? = firstTargetMeasurement?.height ?: 0f
-                                val heightTextView : TextView = rootView.findViewById(R.id.client_profile_height)
-                                heightTextView.text = height.toString()
-
-                                //val targetWeight: Float? = firstTargetMeasurement?.target_weight ?: 0f
-                                //val weights: List<Float> = physicalMeasurements?.map { it.weight } ?: emptyList()
-
-                                val weightChart: BarChart = rootView.findViewById(R.id.chart_weight)
-                                setupChart(weightChart)
-                                setWeightChartData(targetMeasurements, physicalMeasurements, weightChart)
-
-                                val waistChart: BarChart = rootView.findViewById(R.id.chart_waist)
-                                setupChart(waistChart)
-                                setWaistChartData(targetMeasurements, physicalMeasurements, waistChart)
-
-                                val chestChart: BarChart = rootView.findViewById(R.id.chart_chest)
-                                setupChart(chestChart)
-                                setChestChartData(targetMeasurements, physicalMeasurements, chestChart)
-
-                                val armChart: BarChart = rootView.findViewById(R.id.chart_arm)
-                                setupChart(armChart)
-                                setArmChartData(targetMeasurements, physicalMeasurements, armChart)
-
-                                val legChart: BarChart = rootView.findViewById(R.id.chart_leg)
-                                setupChart(legChart)
-                                setLegChartData(targetMeasurements, physicalMeasurements, legChart)
-
-                                val hipChart: BarChart = rootView.findViewById(R.id.chart_hip)
-                                setupChart(hipChart)
-                                setHipChartData(targetMeasurements, physicalMeasurements, hipChart)
-
-                            }else{
-                                val error = response.errorBody()
-                                Log.d("Client","$error")
-                            }
-                        }
-
-                        override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
-                            Log.d("Client","$t")
-                        }
-                    })
+                    Glide.with(this@ClientProfileFragment)
+                        .load(byteArray)
+                        .into(clientImageView)
                 } else {
-
-                    val error = response.errorBody()
-                    Log.d("Client","$error")
+                    clientImageView.setImageResource(drawableUser)
                 }
-            }
 
-            override fun onFailure(call: Call<UserDataResponse>, t: Throwable) {
 
-                Log.d("Client","$t")
+                val name1TextView: TextView = rootView.findViewById(R.id.client_profile_name_view)
+                name1TextView.text = "$firstName $lastName"
+
+                val emailTextView: TextView = rootView.findViewById(R.id.client_profile_email)
+                emailTextView.text = email
+
+                val birthdayTextView : TextView = rootView.findViewById(R.id.client_profile_birthday)
+                birthdayTextView.text = formattedBirth
+
+                val phoneTextView : TextView = rootView.findViewById(R.id.client_profile_phone)
+                phoneTextView.text = phone
+
+                val residenceTextView : TextView = rootView.findViewById(R.id.client_profile_place)
+                residenceTextView.text = residence
+
+                val sexTextView : TextView = rootView.findViewById(R.id.client_profile_sex)
+                sexTextView.text = sex
+            } else {
+                Log.e("ClientProfileFragment", "Error getting user data: $error")
             }
-        })
+        }
+
+        clientProfileHandler.getMeasurementData(userId) { success, measurements, error ->
+            if (success) {
+                val targetMeasurements: List<TargetMeasurement>? = measurements?.data?.target_measurements
+                val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.data?.physical_measurements
+
+                val firstTargetMeasurement: TargetMeasurement? = targetMeasurements?.firstOrNull()
+                val height: Float? = firstTargetMeasurement?.height ?: 0f
+                val heightTextView : TextView = rootView.findViewById(R.id.client_profile_height)
+                heightTextView.text = height.toString()
+
+                val weightChart: BarChart = rootView.findViewById(R.id.chart_weight)
+                setupChart(weightChart)
+                setWeightChartData(targetMeasurements, physicalMeasurements, weightChart)
+
+                val waistChart: BarChart = rootView.findViewById(R.id.chart_waist)
+                setupChart(waistChart)
+                setWaistChartData(targetMeasurements, physicalMeasurements, waistChart)
+
+                val chestChart: BarChart = rootView.findViewById(R.id.chart_chest)
+                setupChart(chestChart)
+                setChestChartData(targetMeasurements, physicalMeasurements, chestChart)
+
+                val armChart: BarChart = rootView.findViewById(R.id.chart_arm)
+                setupChart(armChart)
+                setArmChartData(targetMeasurements, physicalMeasurements, armChart)
+
+                val legChart: BarChart = rootView.findViewById(R.id.chart_leg)
+                setupChart(legChart)
+                setLegChartData(targetMeasurements, physicalMeasurements, legChart)
+
+                val hipChart: BarChart = rootView.findViewById(R.id.chart_hip)
+                setupChart(hipChart)
+                setHipChartData(targetMeasurements, physicalMeasurements, hipChart)
+            } else {
+                Log.e("ClientProfileFragment", "Error getting measurement data: $error")
+            }
+        }
 
         return rootView
         return inflater.inflate(R.layout.fragment_client_profile, container, false)
