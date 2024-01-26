@@ -30,7 +30,7 @@ import retrofit2.Response
 
 class EnterTargetMeasurements : AppCompatActivity() {
 
-    val enterTargetMeasurementsHandler = DefaultEnterTargetMeasurementsHandler(this)
+    private val enterTargetMeasurementsHandler = DefaultEnterTargetMeasurementsHandler(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
