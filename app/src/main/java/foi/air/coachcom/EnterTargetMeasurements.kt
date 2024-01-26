@@ -17,21 +17,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.core.models.MeasurementDataResponse
-import foi.air.core.models.Measurements
-import foi.air.core.models.PhysicalMeasurements
 import foi.air.core.models.TargetMeasurement
 import foi.air.core.models.TargetMeasurementData
 import foi.air.core.models.TargetMeasurementDataResponse
-import foi.air.coachcom.ws.network.MeasurementService
 import foi.air.coachcom.ws.network.NetworkService
 import foi.air.coachcom.ws.network.TargetMeasurementService
+import handlers.DefaultEnterTargetMeasurementsHandler
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class EnterTargetMeasurements : AppCompatActivity() {
+
+    val enterTargetMeasurementsHandler = DefaultEnterTargetMeasurementsHandler(this)
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_enter_target_measurements)
@@ -45,37 +46,24 @@ class EnterTargetMeasurements : AppCompatActivity() {
         val sharedPrefs = appContext.getSharedPreferences("User", Context.MODE_PRIVATE)
         val userId = sharedPrefs.getInt("user_id", 0)
 
-        val measurementService: MeasurementService = NetworkService.measurementService
+        enterTargetMeasurementsHandler.getMeasurementData(userId) { success, measurements, error ->
+            if (success) {
 
-        val call: Call<MeasurementDataResponse> = measurementService.getMeasurementData(userId)
+                val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
 
-        call.enqueue(object : Callback<MeasurementDataResponse> {
-            override fun onResponse(call: Call<MeasurementDataResponse>, response: Response<MeasurementDataResponse>) {
-                if (response.isSuccessful) {
-                    val responseMeasurementData = response.body()
-                    val measurements: Measurements? = responseMeasurementData?.data
-                    val targetMeasurements: List<TargetMeasurement>? = measurements?.target_measurements
-                    val physicalMeasurements: List<PhysicalMeasurements>? = measurements?.physical_measurements
+                val recyclerView: RecyclerView = findViewById(R.id.target_recyclerView)
+                val targetMeasurementsAdapter = TargetMeasurementsAdapter(targetMeasurements)
 
-                    val recyclerView: RecyclerView = findViewById(R.id.target_recyclerView)
-                    val targetMeasurementsAdapter = TargetMeasurementsAdapter(targetMeasurements)
-
-                    recyclerView.layoutManager = LinearLayoutManager(this@EnterTargetMeasurements)
-                    recyclerView.adapter = targetMeasurementsAdapter
-
-
-                }else{
-                    val error = response.errorBody()
-                    Log.d("EnterTargetMeasurements","$error")
-                }
+                recyclerView.layoutManager = LinearLayoutManager(this@EnterTargetMeasurements)
+                recyclerView.adapter = targetMeasurementsAdapter
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                Log.d("EnterTargetMeasurements", error ?: "Unknown error")
             }
-
-            override fun onFailure(call: Call<MeasurementDataResponse>, t: Throwable) {
-                Log.d("EnterTargetMeasurements","$t")
-            }
-        })
+        }
 
         val enterData: Button = findViewById(R.id.change_target_enterButton)
+
         enterData.setOnClickListener {
             val heightEditText: TextInputEditText = findViewById(R.id.change_target_height)
             val targetWeightEditText: TextInputEditText = findViewById(R.id.change_target_weight)
@@ -85,13 +73,13 @@ class EnterTargetMeasurements : AppCompatActivity() {
             val targetLegEditText: TextInputEditText = findViewById(R.id.change_target_legCircumference)
             val targetHipEditText: TextInputEditText = findViewById(R.id.change_target_hipCircumference)
 
-            val height = heightEditText.text.toString().toFloat()
-            val targetWeight = targetWeightEditText.text.toString().toFloat()
-            val targetWaistCircumference = targetWaistEditText.text.toString().toFloat()
-            val targetChestCircumference = targetChestEditText.text.toString().toFloat()
-            val targetArmCircumference = targetArmEditText.text.toString().toFloat()
-            val targetLegCircumference = targetLegEditText.text.toString().toFloat()
-            val targetHipCircumference = targetHipEditText.text.toString().toFloat()
+            val height = heightEditText.text.toString()
+            val targetWeight = targetWeightEditText.text.toString()
+            val targetWaistCircumference = targetWaistEditText.text.toString()
+            val targetChestCircumference = targetChestEditText.text.toString()
+            val targetArmCircumference = targetArmEditText.text.toString()
+            val targetLegCircumference = targetLegEditText.text.toString()
+            val targetHipCircumference = targetHipEditText.text.toString()
 
 
             val targetMeasurementsData = TargetMeasurementData(
@@ -105,38 +93,17 @@ class EnterTargetMeasurements : AppCompatActivity() {
                 target_hip_circumference = targetHipCircumference
             )
 
-            val targetMeasurementService: TargetMeasurementService = NetworkService.targetMeasurementService
-
-            val call: Call<TargetMeasurementDataResponse> = targetMeasurementService.enterTargetMeasurements(targetMeasurementsData)
-
-            call.enqueue(object : Callback<TargetMeasurementDataResponse> {
-                override fun onResponse(call: Call<TargetMeasurementDataResponse>, response: Response<TargetMeasurementDataResponse>) {
-                    if (response.isSuccessful) {
-                        val responseTargetMeasurementData = response.body()
-                        val message = responseTargetMeasurementData?.message
-
-                        val intent = Intent(this@EnterTargetMeasurements, SuccessfulChange::class.java)
-                        intent.putExtra("newText", "$message")
-                        startActivity(intent)
-                        finish()
-
-
-
-                    }else{
-                        val error = response.errorBody()
-                        val errorBody = response.errorBody()?.string()
-                        val errorJson = JSONObject(errorBody)
-                        val errorMessage = errorJson.optString("message")
-
-                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                        Log.d("EnterTargetMeasurements","$error")
-                    }
+            enterTargetMeasurementsHandler.enterTargetMeasurements(targetMeasurementsData) { success, message, error ->
+                if (success) {
+                    val intent = Intent(this@EnterTargetMeasurements, SuccessfulChange::class.java)
+                    intent.putExtra("newText", "$message")
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                    Log.d("EnterTargetMeasurements", error ?: "Unknown error")
                 }
-
-                override fun onFailure(call: Call<TargetMeasurementDataResponse>, t: Throwable) {
-                    Log.d("EnterTargetMeasurements","$t")
-                }
-            })
+            }
 
         }
 
