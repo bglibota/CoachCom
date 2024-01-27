@@ -30,6 +30,7 @@ import foi.air.core.models.PlanDifficulty
 import foi.air.core.models.PlanWeightDataResponse
 import foi.air.core.models.WeightLossPlanData
 import foi.air.core.models.WeightLossPlanDataResponse
+import handlers.DefaultEnterWeightLossPlanHandler
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -37,7 +38,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -47,6 +47,7 @@ class WeightLossPlan : AppCompatActivity() {
     private var selectedPlanWeightId: Int = 0
     private val selectedExerciseIds = mutableListOf<Int>()
 
+    private val weightLossPlanHandler = DefaultEnterWeightLossPlanHandler(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,79 +101,54 @@ class WeightLossPlan : AppCompatActivity() {
             datePicker.show(supportFragmentManager, datePicker.toString())
         }
 
-        val planWeightService : PlanWeightService = NetworkService.planWeightService
+        weightLossPlanHandler.getPlanWeightData { success, data, error ->
+            if (success) {
 
-        val call: Call<PlanWeightDataResponse> = planWeightService.getPlanWeightData()
+                val difficultyIdMap = mutableMapOf<String, Int>()
+                val mutableDifficultyList = mutableListOf<String>()
 
-        call.enqueue(object : Callback<PlanWeightDataResponse> {
-            override fun onResponse(call: Call<PlanWeightDataResponse>, response: Response<PlanWeightDataResponse>) {
-                if (response.isSuccessful) {
-                    val responsePlanWeightData = response.body()
-                    val data: List<PlanDifficulty>? = responsePlanWeightData?.data
-
-                    val difficultyIdMap = mutableMapOf<String, Int>()
-                    val mutableDifficultyList = mutableListOf<String>()
-
-                    data?.forEach { difficulty ->
-                        difficultyIdMap[difficulty.plan_difficulty] = difficulty.plan_weight_id
-                        mutableDifficultyList.add(difficulty.plan_difficulty)
-                    }
-
-
-                    val adapter = ArrayAdapter(this@WeightLossPlan, android.R.layout.simple_spinner_item, mutableDifficultyList)
-
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
-                    val difficultySpinner: Spinner = findViewById(R.id.difficultySpinner)
-                    difficultySpinner.adapter = adapter
-
-                    difficultySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                        override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                            val selectedDifficulty = data?.get(position)
-                            selectedDifficulty?.let {
-                                selectedPlanWeightId = it.plan_weight_id
-                            }
-                        }
-
-                        override fun onNothingSelected(parent: AdapterView<*>?) {
-                            selectedPlanWeightId = 0
-                        }
-                    }
-
-                }else{
-                    val error = response.errorBody()
-                    val errorBody = response.errorBody()?.string()
-                    val errorJson = JSONObject(errorBody)
-                    val errorMessage = errorJson.optString("message")
-
-                    Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                    Log.d("PlanWeight","$error")
+                data?.forEach { difficulty ->
+                    difficultyIdMap[difficulty.plan_difficulty] = difficulty.plan_weight_id
+                    mutableDifficultyList.add(difficulty.plan_difficulty)
                 }
-            }
 
-            override fun onFailure(call: Call<PlanWeightDataResponse>, t: Throwable) {
-                Log.d("PlanWeight","$t")
+
+                val adapter = ArrayAdapter(this@WeightLossPlan, android.R.layout.simple_spinner_item, mutableDifficultyList)
+
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+                val difficultySpinner: Spinner = findViewById(R.id.difficultySpinner)
+                difficultySpinner.adapter = adapter
+
+                difficultySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                        val selectedDifficulty = data?.get(position)
+                        selectedDifficulty?.let {
+                            selectedPlanWeightId = it.plan_weight_id
+                        }
+                    }
+
+                    override fun onNothingSelected(parent: AdapterView<*>?) {
+                        selectedPlanWeightId = 0
+                    }
+                }
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                Log.d("PlanWeight", error ?: "Unknown error")
             }
-        })
+        }
 
         val appContext = applicationContext
         val sharedPrefs = appContext.getSharedPreferences("User", Context.MODE_PRIVATE)
         val userId = sharedPrefs.getInt("user_id", 0)
 
-        val exercisesService : ExercisesService = NetworkService.exercisesService
+        weightLossPlanHandler.getExercisesData(userId) { success, exercisesList, error ->
+            if (success) {
+                val recyclerView: RecyclerView = findViewById(R.id.exercisesRecyclerView)
+                val messageTextView: TextView = findViewById(R.id.weight_loss_plan_no_exercises_message)
+                val markImageView: ImageView = findViewById(R.id.weight_loss_plan_imageView_mark)
 
-        val call1: Call<ExerciseDataResponse> = exercisesService.getExercisesData(userId)
-
-        call1.enqueue(object : Callback<ExerciseDataResponse> {
-            override fun onResponse(call: Call<ExerciseDataResponse>, response: Response<ExerciseDataResponse>) {
-                if (response.isSuccessful) {
-                    val responseExercisesData = response.body()
-                    val exercisesList: List<Exercise> = responseExercisesData?.data ?: emptyList()
-
-                    val recyclerView: RecyclerView = findViewById(R.id.exercisesRecyclerView)
-                    val messageTextView: TextView = findViewById(R.id.weight_loss_plan_no_exercises_message)
-                    val markImageView: ImageView = findViewById(R.id.weight_loss_plan_imageView_mark)
-
+                if (exercisesList != null) {
                     if (exercisesList.isEmpty()) {
 
                         messageTextView.visibility = View.VISIBLE
@@ -189,22 +165,12 @@ class WeightLossPlan : AppCompatActivity() {
                         recyclerView.layoutManager = layoutManager
                         recyclerView.adapter = adapter
                     }
-
-                }else{
-                    val error = response.errorBody()
-                    val errorBody = response.errorBody()?.string()
-                    val errorJson = JSONObject(errorBody)
-                    val errorMessage = errorJson.optString("message")
-
-                    Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                    Log.d("Exercises","$error")
                 }
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                Log.d("Exercises", error ?: "Unknown error")
             }
-
-            override fun onFailure(call: Call<ExerciseDataResponse>, t: Throwable) {
-                Log.d("Exercises","$t")
-            }
-        })
+        }
 
         val enterWeightLossPlan: Button = findViewById(R.id.weight_loss_plan_enterDataButton)
 
@@ -266,36 +232,17 @@ class WeightLossPlan : AppCompatActivity() {
                 exercises = exercisesId
             )
 
-            val weightLossPlanService : WeightLossPlanService = NetworkService.weightLossPlanService
-
-            val call2: Call<WeightLossPlanDataResponse> = weightLossPlanService.enterWeightLossPlan(weightLossPlanData)
-
-            call2.enqueue(object : Callback<WeightLossPlanDataResponse> {
-                override fun onResponse(call: Call<WeightLossPlanDataResponse>, response: Response<WeightLossPlanDataResponse>) {
-                    if (response.isSuccessful) {
-                        val responseWeightLossPlanData = response.body()
-                        val message = responseWeightLossPlanData?.message
-
-                        val intent = Intent(this@WeightLossPlan, Successful::class.java)
-                        intent.putExtra("newText", "$message")
-                        startActivity(intent)
-                        finish()
-
-                    }else{
-                        val error = response.errorBody()
-                        val errorBody = response.errorBody()?.string()
-                        val errorJson = JSONObject(errorBody)
-                        val errorMessage = errorJson.optString("message")
-
-                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                        Log.d("WeightLossPlan","$error")
-                    }
+            weightLossPlanHandler.enterWeightLossPlan(weightLossPlanData) { success, message, error ->
+                if (success) {
+                    val intent = Intent(this, Successful::class.java)
+                    intent.putExtra("newText", message)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                    Log.d("WeightLossPlan", error ?: "Unknown error")
                 }
-
-                override fun onFailure(call: Call<WeightLossPlanDataResponse>, t: Throwable) {
-                    Log.d("WeightLossPlan","$t")
-                }
-            })
+            }
 
         }
 

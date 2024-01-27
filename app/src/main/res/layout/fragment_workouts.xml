@@ -7,11 +7,6 @@
     android:background="#F6F2F2"
     tools:context="foi.air.coachcom.WorkoutsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
     <ImageView
         android:id="@+id/plan_adding"

@@ -10,15 +10,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import foi.air.core.models.ChangePasswordData
-import foi.air.core.models.ChangePasswordDataResponse
-import foi.air.coachcom.ws.network.ChangePasswordService
-import foi.air.coachcom.ws.network.NetworkService
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import handlers.ChangePasswordHandler
+import handlers.DefaultChangePasswordHandler
 
 class ChangePassword : AppCompatActivity() {
+
+    private val changePasswordHandler: ChangePasswordHandler = DefaultChangePasswordHandler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,36 +50,18 @@ class ChangePassword : AppCompatActivity() {
                 Snackbar.make(findViewById(android.R.id.content), "Passwords do not match. Please try again.", Snackbar.LENGTH_LONG).show()
             }else{
 
-                val changePasswordService: ChangePasswordService = NetworkService.changePasswordService
-
-                val call: Call<ChangePasswordDataResponse> = changePasswordService.updatePassword(changePasswordData)
-
-                call.enqueue(object : Callback<ChangePasswordDataResponse> {
-                    override fun onResponse(call: Call<ChangePasswordDataResponse>, response: Response<ChangePasswordDataResponse>) {
-                        if (response.isSuccessful) {
-                            val responseChangePasswordData = response.body()
-                            val message = responseChangePasswordData?.message
-
-                            val intent = Intent(this@ChangePassword, SuccessfulChange::class.java)
-                            intent.putExtra("newText", "$message")
-                            startActivity(intent)
-                            finish()
-
-                        }else{
-                            val error = response.errorBody()
-                            val errorBody = response.errorBody()?.string()
-                            val errorJson = JSONObject(errorBody)
-                            val errorMessage = errorJson.optString("message")
-
-                            Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                            Log.d("ChangePassword","$error")
-                        }
+                changePasswordHandler.updatePassword(changePasswordData) { success, message, error ->
+                    if (success) {
+                        val intent = Intent(this@ChangePassword, SuccessfulChange::class.java)
+                        intent.putExtra("newText", message)
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG)
+                            .show()
+                        Log.d("ChangePassword", error ?: "Unknown error")
                     }
-
-                    override fun onFailure(call: Call<ChangePasswordDataResponse>, t: Throwable) {
-                        Log.d("ChangePassword","$t")
-                    }
-                })
+                }
             }
 
 

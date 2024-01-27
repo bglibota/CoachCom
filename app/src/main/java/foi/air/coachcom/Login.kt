@@ -1,24 +1,19 @@
 package foi.air.coachcom
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import foi.air.core.models.LoginData
-import foi.air.core.models.ResponseLoginData
-import foi.air.coachcom.ws.network.LoginService
-import foi.air.coachcom.ws.network.NetworkService
 import com.google.android.material.snackbar.Snackbar
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import handlers.DefaultLoginHandler
+import handlers.LoginHandler
+
 
 class Login : AppCompatActivity() {
+
+    private val loginHandler: LoginHandler = DefaultLoginHandler(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,57 +43,15 @@ class Login : AppCompatActivity() {
             val username = usernameEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            val loginService: LoginService = NetworkService.loginService
-
-            val loginData = LoginData(
-                insertedUsername = username,
-                insertedPassword = password
-            )
-
-            val retrofitData = loginService.loginUser(loginData)
-
-            retrofitData.enqueue(object : Callback<ResponseLoginData> {
-                override fun onResponse(
-                    call: Call<ResponseLoginData>,
-                    response: Response<ResponseLoginData>
-                ) {
-
-                    if(response.isSuccessful){
-                        val responseData = response.body()
-                        val session = responseData?.data
-                        val userId = session?.user_id ?: 0
-                        val role = session?.role
-
-                        val sharedPrefs = getSharedPreferences("User", Context.MODE_PRIVATE)
-                        val editor = sharedPrefs.edit()
-
-                        editor.putString("role", role)
-                        editor.putInt("user_id",userId)
-                        editor.apply()
-
-
-                        val intent = Intent(this@Login, MainActivity::class.java)
-                        startActivity(intent)
-                        finish()
-
-                    }
-                    if(!response.isSuccessful){
-                        val errorBody = response.errorBody()?.string()
-                        val errorJson = JSONObject(errorBody)
-                        val errorMessage = errorJson.optString("message")
-
-                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-
-                    }
-
+            loginHandler.loginUser(username, password) { success, message ->
+                if (success) {
+                    val intent = Intent(this@Login, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), message ?: "Unknown error", Snackbar.LENGTH_LONG).show()
                 }
-
-                override fun onFailure(call: Call<ResponseLoginData>, t: Throwable) {
-                    Log.d("Login", t.toString())
-                    Log.d("Login", "Error")
-                    Log.d("Login", t.printStackTrace().toString())
-                }
-            })
+            }
 
 
         }

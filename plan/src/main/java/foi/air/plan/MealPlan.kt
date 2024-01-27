@@ -16,18 +16,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
-import foi.air.coachcom.ws.network.MealPlanService
-import foi.air.coachcom.ws.network.NetworkService
 import foi.air.core.models.MealPlanData
-import foi.air.core.models.MealPlanDataResponse
-import foi.air.core.models.PhysicalMeasurementDataResponse
-import org.json.JSONObject
+import handlers.DefaultEnterMealPlanHandler
 import java.io.ByteArrayOutputStream
 import java.io.FileNotFoundException
 import java.io.InputStream
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+
 
 class MealPlan : AppCompatActivity() {
 
@@ -36,6 +30,8 @@ class MealPlan : AppCompatActivity() {
     private val PICK_IMAGE_REQUEST_LUNCH = 3
     private val PICK_IMAGE_REQUEST_AFTERNOON_SNACK = 4
     private val PICK_IMAGE_REQUEST_DINNER = 5
+
+    private val mealPlanHandler = DefaultEnterMealPlanHandler(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,36 +113,17 @@ class MealPlan : AppCompatActivity() {
                 dinner = dinner
             )
 
-            val mealPlanService : MealPlanService = NetworkService.mealPlanService
-
-            val call: Call<MealPlanDataResponse> = mealPlanService.enterMealPlan(mealPlanData)
-
-            call.enqueue(object : Callback<MealPlanDataResponse> {
-                override fun onResponse(call: Call<MealPlanDataResponse>, response: Response<MealPlanDataResponse>) {
-                    if (response.isSuccessful) {
-                        val responseMealPlanData = response.body()
-                        val message = responseMealPlanData?.message
-
-                        val intent = Intent(this@MealPlan, Successful::class.java)
-                        intent.putExtra("newText", "$message")
-                        startActivity(intent)
-                        finish()
-
-                    }else{
-                        val error = response.errorBody()
-                        val errorBody = response.errorBody()?.string()
-                        val errorJson = JSONObject(errorBody)
-                        val errorMessage = errorJson.optString("message")
-
-                        Snackbar.make(findViewById(android.R.id.content), errorMessage, Snackbar.LENGTH_LONG).show()
-                        Log.d("MealPlan","$error")
-                    }
+            mealPlanHandler.enterMealPlan(mealPlanData) { success, message, error ->
+                if (success) {
+                    val intent = Intent(this@MealPlan, Successful::class.java)
+                    intent.putExtra("newText", "$message")
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Snackbar.make(findViewById(android.R.id.content), error ?: "Unknown error", Snackbar.LENGTH_LONG).show()
+                    Log.d("MealPlan", error ?: "Unknown error")
                 }
-
-                override fun onFailure(call: Call<MealPlanDataResponse>, t: Throwable) {
-                    Log.d("MealPlan","$t")
-                }
-            })
+            }
 
         }
     }

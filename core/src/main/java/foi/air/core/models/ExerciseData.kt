@@ -1,16 +1,5 @@
 package foi.air.core.models
 
-import android.R.attr.description
-
-import android.R.attr.name
-
-
-
-
-data class ExerciseData(
-    val user_id: Int
-)
-
 data class ExerciseDataResponse(
     val success: String,
     val message: String,

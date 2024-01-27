@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "foi.air.coachcom.ws"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 26

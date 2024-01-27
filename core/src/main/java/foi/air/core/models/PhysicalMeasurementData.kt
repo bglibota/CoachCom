@@ -4,12 +4,12 @@ package foi.air.core.models
 data class PhysicalMeasurementData(
 
     val user_id: Int,
-    val weight: Float,
-    val waist_circumference: Float,
-    val chest_circumference: Float,
-    val arm_circumference: Float,
-    val leg_circumference: Float,
-    val hip_circumference: Float
+    val weight: String,
+    val waist_circumference: String,
+    val chest_circumference: String,
+    val arm_circumference: String,
+    val leg_circumference: String,
+    val hip_circumference: String
 
 )
 
