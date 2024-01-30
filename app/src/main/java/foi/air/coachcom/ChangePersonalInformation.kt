@@ -104,9 +104,19 @@ class ChangePersonalInformation : AppCompatActivity() {
             val residence = residenceEditText.text.toString()
             val sex = sexEditText.text.toString()
 
-            val originalDate = LocalDate.parse(birthdayString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
-            val birthday = originalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+            val originalDate: String = try {
+                if (birthdayString.isNotBlank()) {
+                    val originalDate = LocalDate.parse(birthdayString, DateTimeFormatter.ofPattern("dd-MM-yyyy"))
+                    originalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+                } else {
+                    ""
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                ""
+            }
 
+            val birthday = originalDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
 
 
             val changePersonalInformationData =

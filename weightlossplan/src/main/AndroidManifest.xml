@@ -8,6 +8,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.CoachCom">
+        <activity
+            android:name=".SuccessfulActivityWeightLossPlan"
+            android:exported="false" />
+        <activity
+            android:name=".WeightLossPlan"
+            android:exported="true" />
     </application>
 
 </manifest>

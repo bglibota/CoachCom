@@ -16,6 +16,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".Plan"
+            android:exported="false" />
+        <activity
             android:name=".SuccessfulChange"
             android:exported="false" />
         <activity
@@ -38,7 +41,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".ChangePassword" />
-        <activity android:name="foi.air.plan.Plan" />
+        <activity android:name="foi.air.coachcom.mealplan.MealPlan" />
+        <activity android:name="foi.air.coachcom.weightlossplan.WeightLossPlan" />
     </application>
 
 </manifest>

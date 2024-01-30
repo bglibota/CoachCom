@@ -18,4 +18,5 @@ rootProject.name = "CoachCom"
 include(":app")
 include(":ws")
 include(":core")
-include(":plan")
+include(":mealplan")
+include(":weightlossplan")
